@@ -131,7 +131,7 @@ app.use(myconnection(mysql, {
   password : 'alejandro20759364',
   port : 3306,
   database : 'lrdlmrgw_directorio',
-  connectTimeout: 550000 // Añade esta línea, tiempo de espera de conexión en milisegundos (10 segundos)
+  connectTimeout: 10000 // Añade esta línea, tiempo de espera de conexión en milisegundos (10 segundos)
 
 }))
 
@@ -163,11 +163,11 @@ app.use(session({
 
 const path = require('path');
 
-const workbook1 = xlsx.readFile(path.resolve(__dirname, 'aliseda.xlsx'));
+const workbook1 = xlsx.readFile(path.resolve(__dirname, 'data_97.xlsx'));
 const worksheet1 = workbook1.Sheets['Sheet1'];
 const data1 = xlsx.utils.sheet_to_json(worksheet1);
 
-const workbook2 = xlsx.readFile(path.resolve(__dirname, 'data_97.xlsx'));
+const workbook2 = xlsx.readFile(path.resolve(__dirname, 'aliseda.xlsx'));
 const worksheet2 = workbook2.Sheets['Sheet1'];
 const data2 = xlsx.utils.sheet_to_json(worksheet2);
 
