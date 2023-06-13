@@ -131,7 +131,7 @@ app.use(myconnection(mysql, {
   password : 'alejandro20759364',
   port : 3306,
   database : 'lrdlmrgw_directorio',
-  connectTimeout: 10000 // Añade esta línea, tiempo de espera de conexión en milisegundos (10 segundos)
+  connectTimeout: 550000 // Añade esta línea, tiempo de espera de conexión en milisegundos (10 segundos)
 
 }))
 
