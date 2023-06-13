@@ -21,11 +21,12 @@
         <img height="60px" src="https://i.postimg.cc/ZnjV8rNs/Artboard-1.png" alt="">
     </div> --}}
    
-<body>
+{{!-- <body>
     {{#if detalle}}
         <h1>{{detalle.Title}}</h1>
         <p>{{detalle.Provincia}}</p>
         <img src="{{detalle.MainPhoto}}" alt="Imagen de propiedad" />
+        <img src="{{detall.ImageSources}}" alt="Imagenes de propiedad">
     {{else}}
         <p>Propiedad no encontrada</p>
     {{/if}}
@@ -113,4 +114,39 @@
     }
   }
   
-</style>
+</style> --}}
+
+
+
+<body class="bg-gray-100">
+  <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl my-10">
+    {{#if detalle}}
+      <div class="md:flex">
+       
+        <div class="p-8">
+          <h1 class="text-xl font-bold">{{detalle.Title}}</h1>
+          <p class="text-gray-700 mt-2">Provincia: {{detalle.Provincia}}</p>
+          <p class="text-gray-700 mt-2">Precio: {{detalle.Price}}</p>
+          <p class="text-gray-700 mt-2">Descripción: {{detalle.Descripcion}}</p>
+          <p class="text-gray-700 mt-2">Direccion: {{detalle.Direccion}}</p>
+          <p class="text-gray-700 mt-2">Metros Cuadrados: {{detalle.MetrosCuadrados}}</p>
+          <p class="text-gray-700 mt-2">Habitaciones: {{detalle.Habitaciones}}</p>
+          <p class="text-gray-700 mt-2">Baños: {{detalle.Baños}}</p>
+        </div>
+      </div>
+       <div class="md:shrink-0">
+          <img class="h-32 w-full object-cover md:h-48 md:w-48 lg:h-64 lg:w-64" src="{{detalle.MainPhoto}}" alt="Imagen de propiedad">
+        </div>
+      <div class="p-2 grid grid-cols-2 md:grid-cols-4 gap-4">
+        {{#each detalle.ImageSources}}
+          <img class="w-full h-32 object-cover" src="{{this}}" alt="Imagenes de propiedad">
+        {{/each}}
+      </div>
+    {{else}}
+      <div class="p-8">
+        <p class="text-gray-700">Propiedad no encontrada</p>
+      </div>
+    {{/if}}
+  </div>
+</body>
+
