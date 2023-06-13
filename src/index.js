@@ -149,11 +149,23 @@ app.use(session({
 // const data = xlsx.utils.sheet_to_json(worksheet);
 
 
-const workbook1 = xlsx.readFile('aliseda.xlsx');
+// const workbook1 = xlsx.readFile('aliseda.xlsx');
+// const worksheet1 = workbook1.Sheets['Sheet1'];
+// const data1 = xlsx.utils.sheet_to_json(worksheet1);
+
+// const workbook2 = xlsx.readFile('data_97.xlsx');
+// const worksheet2 = workbook2.Sheets['Sheet1'];
+// const data2 = xlsx.utils.sheet_to_json(worksheet2);
+
+// const data = data1.concat(data2);
+
+const path = require('path');
+
+const workbook1 = xlsx.readFile(path.resolve(__dirname, 'aliseda.xlsx'));
 const worksheet1 = workbook1.Sheets['Sheet1'];
 const data1 = xlsx.utils.sheet_to_json(worksheet1);
 
-const workbook2 = xlsx.readFile('data_97.xlsx');
+const workbook2 = xlsx.readFile(path.resolve(__dirname, 'data_97.xlsx'));
 const worksheet2 = workbook2.Sheets['Sheet1'];
 const data2 = xlsx.utils.sheet_to_json(worksheet2);
 
