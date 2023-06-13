@@ -201,7 +201,7 @@ app.get('/detalle/:id', (req, res) => {
   const detalle = data.find((item) => item.Id == id); // Usa 'Id' y '==' en lugar de 'id' y '==='
   console.log(detalle);
   
-  res.render('detallePropiedad', { detalle: detalle, name: req.session.name }, (err, html) => {
+  res.render('detallePropiedad', { detalle: detalle}, (err, html) => {
     if (err) {
       console.log(err);
       res.status(500).send('Error al renderizar la página');
@@ -240,7 +240,7 @@ hbs.registerHelper('if_eq', function(a, b, opts) {
 
 app.get('/', (req, res) => {
   if(req.session.loggedin == true) {
-    const page = parseInt(req.query.page) || 1;
+  const page = parseInt(req.query.page) || 1;
   const limit = 200;
   const skip = (page - 1) * limit;
 
@@ -253,7 +253,7 @@ app.get('/', (req, res) => {
   }
 
   const paginatedData = data.slice(skip, skip + limit);
-  res.render('home', { data: paginatedData, pages, name: req.session.name }, (err, html) => {
+  res.render('home', { data: paginatedData, pages}, (err, html) => {
     if (err) {
       console.log(err);
       res.status(500).send('Error al renderizar la página');
