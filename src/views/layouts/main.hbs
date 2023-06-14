@@ -15,7 +15,7 @@
  
   </head>
   <body class="bg-gray-200">
-    <nav class="bg-green-500 text-white px-4 py-5">
+    <nav class="bg-red-500 text-white px-4 py-5">
       <div class="max-w-7xl mx-auto">
         <div class="flex flex-col md:flex-row justify-between items-center">
           <a href="/">
@@ -29,18 +29,20 @@
             
 
             <li class="nav-item">
-              <a href="/logout" class="nav-link font-semibold bg-red-500 hover:bg-red-700 py-2 px-4 rounded-md">Logout</a>
+              <a href="/logout" class="nav-link font-semibold border-2 border-white hover:bg-white hover:text-green-700 py-2
+                px-4 rounded-md">Logout</a>
             </li>
 
             {{else}}
             <li class="nav-item">
-              <a href="/login" class="nav-link font-semibold hover:bg-green-700 py-2 px-4 rounded-md">Login</a>
+              <a href="/login" class="nav-link font-semibold border-2 border-white hover:bg-white hover:text-green-700 py-2
+                px-4 rounded-md">Login</a>
             </li>
 
-            <li class="nav-item">
+            {{!-- <li class="nav-item">
               <a href="/register" class="nav-link font-semibold border-2 border-white hover:bg-white hover:text-green-700 py-2
                 px-4 rounded-md">Register</a>
-            </li>
+            </li> --}}
             {{/if}}
           </ul>
         </div>

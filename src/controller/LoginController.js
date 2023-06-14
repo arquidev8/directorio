@@ -12,7 +12,7 @@ function auth(req, res){
     const data = req.body
     
     req.getConnection((err, conn) => {
-        conn.query('SELECT * FROM users WHERE email = ?', [data.email], (err, userdata) => {
+        conn.query('SELECT * FROM users WHERE name = ?', [data.name], (err, userdata) => {
             if(userdata.length > 0) {
 
               userdata.forEach(element => {
@@ -49,7 +49,7 @@ function storeUser(req, res){
     const data = req.body;
 
     req.getConnection((err, conn) => {
-        conn.query('SELECT * FROM users WHERE email = ?', [data.email], (err, userdata) => {
+        conn.query('SELECT * FROM users WHERE name = ?', [data.name], (err, userdata) => {
             if(userdata.length > 0) {
                 res.render('login/register', { error: 'El usuario ya existe' })
             }else{

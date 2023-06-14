@@ -5,11 +5,35 @@
         <img height="60px" src="https://i.postimg.cc/ZnjV8rNs/Artboard-1.png" alt="">
     </div> --}}
 
-    <h1 class="text-center my-24 text-xl"> Bienvenido de Vuelta</h1>
+    <p class="text-justify my-12 mx-12 text-lg md:text-x6 md:py-8 lg:py-16"><strong> IMPORTANTE: </strong> Este portal es un directorio privado de propiedades que se encuentra protegido por la Ley de Secretos Empresariales de España (Ley 1/2019, de 20 de febrero).
+    El acceso a este portal se otorga exclusivamente por invitación. Es importante tener en cuenta que las credenciales de acceso vencen cada 15 días, por lo tanto, el usuario debe solicitar la renovación 
+    a la persona que le proporcionó el acceso si desea seguir utilizándolo. Debido a que las propiedades mostradas en este directorio provienen de fondos de reestructuración bancaria, la información proporcionada puede contener errores tanto en su descripción como en el precio. Por esta razón, la información contenida en este portal no tiene carácter vinculante.</p>
+
     
-    <div class="cards">
-      {{#each data}}
-      
+   <div class="container mx-auto py-8 bg-red-500 rounded">
+  <form id="filtros" class="w-full lg:w-1/2 mx-auto flex flex-wrap lg:flex-nowrap space-y-4 lg:space-x-4 items-center">
+    <div class="flex flex-col w-full items-start mb-4 lg:flex lg:items-start m-7">
+      <label for="provincia" class="text-white w-full lg:w-2/5" style="line-height: 2;"><strong>Provincia:</strong></label>
+      <input type="text" id="provincia" name="provincia" class="w-full lg:w-4/4 px-2 py-1 mt-2 border border-gray-300 rounded">
+    </div>
+    <div class="flex flex-col w-full items-start mb-4 lg:flex lg:items-start m-7">
+      <label for="referencia" class="text-white w-full lg:w-2/5 py-3" style="line-height: -3.2;"><strong>Referencia:</strong></label>
+      <input type="text" id="referencia" name="referencia" class="w-full lg:w-4/4 px-2 py-1 mb-3 border border-gray-300 rounded">
+    </div>
+    <button type="submit" class="self-center text-white nav-link font-semibold border-2 border-white hover:bg-white hover:text-green-700 py-2 px-8 rounded-md m-7">Filtrar</button>
+  </form>
+</div>
+
+
+
+
+
+
+
+
+
+    {{!-- <div class="cards">
+      {{#each data}}   
         <div class="card">
           <a href="/detalle/{{this.Id}}">
           <img src="{{this.MainPhoto}}" alt="" class="card-image">
@@ -24,10 +48,31 @@
             
           </div>
           </a>
-        </div>
-        
+        </div>    
+      {{/each}}
+    </div> --}}
+
+    <div class="cards">
+      {{#each data}}
+
+      <div class="card">
+        <a href="/detalle/{{this.Id}}">
+          <img src="{{this.MainPhoto}}" alt="" class="card-image">
+          <div class="card-details">
+            <h1><strong>{{this.Title}}</strong></h1>
+            <p data-referencia><strong>Referencia:</strong> {{this.Id}}</p>
+            <p data-provincia><strong>Provincia:</strong> {{this.Provincia}}</p>
+            <p><strong>Precio:</strong> {{this.Price}}</p>
+            <p><strong>Superficie:</strong> {{this.MetrosCuadrados}}</p>
+            <p><strong>Dormitorios:</strong> {{this.Dormitorios}}</p>
+            <p><strong>Baños:</strong> {{this.Baños}}</p>
+          </div>
+        </a>
+      </div>
+
       {{/each}}
     </div>
+
 
 
 
@@ -43,9 +88,30 @@
     {{/each}}
   </nav>
 </div>
-
   </body>
 </html>
+
+<script>
+   document.getElementById('filtros').addEventListener('submit', function(event) {
+  event.preventDefault();
+  var provincia = document.getElementById('provincia').value;
+  var referencia = document.getElementById('referencia').value;
+
+  var cards = document.querySelectorAll('.card');
+  cards.forEach(function(card) {
+    var cardProvincia = card.querySelector('[data-provincia]').textContent;
+    var cardReferencia = card.querySelector('[data-referencia]').textContent;
+
+    if ((provincia === '' || cardProvincia.includes(provincia)) &&
+        (referencia === '' || cardReferencia.includes(referencia))) {
+      card.style.display = 'block';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+});
+
+  </script>
 
 
 
