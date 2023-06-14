@@ -198,6 +198,60 @@ const data = data1.concat(data2);
 // });
 
 
+
+
+app.post('/filtrar', (req, res) => {
+
+  
+  function formatPrice(price) {
+    const formatter = new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' });
+    const formattedPrice = formatter.format(price);
+    return formattedPrice;
+  }
+
+
+  const provincia = req.body.provincia;
+
+  const precioMaximo = formatPrice(req.body.precio);
+
+  const filteredData = data.filter(item =>
+    (provincia === '' || (item.Provincia && item.Provincia.includes(provincia))) &&
+    (isNaN(precioMaximo) || formatPrice(item.Price) <= precioMaximo)
+  );
+
+  // Resto del código para paginación y renderizado de la vista
+
+
+// Resto del código para paginación y renderizado de la vista
+
+
+  // Paso 4: Actualizar paginación para mostrar solo objetos filtrados
+  const page = parseInt(req.query.page) || 1;
+  const limit = 200;
+  const skip = (page - 1) * limit;
+
+  const paginatedData = filteredData.slice(skip, skip + limit);
+  const totalPropiedades = filteredData.length;
+  const totalPages = Math.ceil(totalPropiedades / limit);
+  const pages = [];
+  for (let i = 1; i <= totalPages; i++) {
+    pages.push(i);
+  }
+
+  res.render('home', { data: paginatedData, pages, name: req.session.name }, (err, html) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send('Error al renderizar la página');
+    } else {
+      res.send(html);
+    }
+  });
+});
+
+
+
+
+
 app.get('/detalle/:id', (req, res) => {
   const id = req.params.id;
   const detalle = data.find((item) => item.Id == id); // Usa 'Id' y '==' en lugar de 'id' y '==='
