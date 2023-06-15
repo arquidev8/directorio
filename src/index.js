@@ -111,7 +111,6 @@ const myconnection = require("express-myconnection");
 const mysql = require("mysql");
 const session = require("express-session");
 const bodyParser = require('body-parser');
-
 const loginRoutes = require('./routes/login');
 
 
@@ -125,14 +124,22 @@ app.set('view engine', 'hbs');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// app.use(myconnection(mysql, {
+//   host : '50.31.177.50',
+//   user : 'lrdlmrgw_hector',
+//   password : 'alejandro20759364',
+//   port : 3306,
+//   database : 'lrdlmrgw_directorio',
+//   connectTimeout: 10000, // Añade esta línea, tiempo de espera de conexión en milisegundos (10 segundos)
+//   poolSize: 10
+// }))
+
 app.use(myconnection(mysql, {
-  host : '50.31.177.50',
-  user : 'lrdlmrgw_hector',
-  password : 'alejandro20759364',
-  port : 3306,
-  database : 'lrdlmrgw_directorio',
-  connectTimeout: 10000, // Añade esta línea, tiempo de espera de conexión en milisegundos (10 segundos)
-  poolSize: 10
+  host : 'aws.connect.psdb.cloud',
+  user : 'ge06l2q7jvzmngqlbjon',
+  password : 'pscale_pw_XjDOg3HRQqpj78OC5e8VmLntSKrEAAwUMSxaUDk4gZf',
+  database : 'directorio',
+  ssl: true
 }))
 
 
@@ -143,87 +150,75 @@ app.use(session({
 }))
 
 
-
-
-// Configuración de la hoja de cálculo y los datos
-// const workbook = xlsx.readFile('aliseda.xlsx');
-// const worksheet = workbook.Sheets['Sheet1'];
-// const data = xlsx.utils.sheet_to_json(worksheet);
-
-
-// const workbook1 = xlsx.readFile('aliseda.xlsx');
-// const worksheet1 = workbook1.Sheets['Sheet1'];
-// const data1 = xlsx.utils.sheet_to_json(worksheet1);
-
-// const workbook2 = xlsx.readFile('data_97.xlsx');
-// const worksheet2 = workbook2.Sheets['Sheet1'];
-// const data2 = xlsx.utils.sheet_to_json(worksheet2);
-
-// const data = data1.concat(data2);
-
 const path = require('path');
-
-const workbook1 = xlsx.readFile(path.resolve(__dirname, 'data_97.xlsx'));
+const workbook1 = xlsx.readFile(path.resolve(__dirname, 'aliseda.xlsx'));
 const worksheet1 = workbook1.Sheets['Sheet1'];
 const data1 = xlsx.utils.sheet_to_json(worksheet1);
-
-const workbook2 = xlsx.readFile(path.resolve(__dirname, 'aliseda.xlsx'));
+const workbook2 = xlsx.readFile(path.resolve(__dirname, 'data_97.xlsx'));
 const worksheet2 = workbook2.Sheets['Sheet1'];
 const data2 = xlsx.utils.sheet_to_json(worksheet2);
-
 const data = data1.concat(data2);
-
-
-
-
-// app.get('/login', (req, res) => {
-//   ejs.renderFile('views/login.html')
-// });
-
-// app.get('/register', (req, res) => {
-//   ejs.renderFile('views/register.html');
-// });
-
-
-// app.get('/home', (req, res) => {
-//   ejs.renderFile('views/propiedades.html', { data: data }, (err, html) => {
-//     if (err) {
-//       console.log(err);
-//       res.status(500).send('Error al renderizar la página');
-//     } else {
-//       console.log(data);
-//       res.send(html);
-//     }
-//   });
-// });
-
 
 
 
 app.post('/filtrar', (req, res) => {
 
-  
-  function formatPrice(price) {
-    const formatter = new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' });
-    const formattedPrice = formatter.format(price);
-    return formattedPrice;
+  // function formatPrice(price) {
+  //   const formatter = new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' });
+  //   const formattedPrice = formatter.format(price);
+  //   return formattedPrice;
+  // }
+
+  function capitalizeFirstLetter(str) {
+    if (!str) {
+      return '';
+    }
+    return str[0].toUpperCase() + str.slice(1).toLowerCase();
   }
-
-
+  
+  
   const provincia = req.body.provincia;
-
-  const precioMaximo = formatPrice(req.body.precio);
-
-  const filteredData = data.filter(item =>
-    (provincia === '' || (item.Provincia && item.Provincia.includes(provincia))) &&
-    (isNaN(precioMaximo) || formatPrice(item.Price) <= precioMaximo)
-  );
-
-  // Resto del código para paginación y renderizado de la vista
+  const referencia = req.body.referencia ? req.body.referencia.toUpperCase() : '';
+  const ciudad = capitalizeFirstLetter(req.body.ciudad);
 
 
-// Resto del código para paginación y renderizado de la vista
+  const precioMinimo = req.body.precioMinimo;
+  const precioMaximo = req.body.precioMaximo;
 
+
+  // const filteredData = data.filter(item => {
+  //   if (!item.Price) {
+  //     return false;
+  //   }
+  
+  //   const itemPrice = parseFloat(item.Price.replace('€', '').replace('.', '').trim());
+  
+  //   return (
+  //     (provincia === '' || (item.Provincia && item.Provincia.includes(provincia))) &&
+  //     (referencia === '' || (item.Id && item.Id.includes(referencia))) &&
+  //     (ciudad === '' || (item.Municipio && item.Municipio.includes(ciudad))) &&
+  //     (isNaN(precioMinimo) || itemPrice >= precioMinimo) &&
+  //     (isNaN(precioMaximo) || itemPrice <= precioMaximo)
+  //   );
+  // });
+
+  const filteredData = data.filter(item => {
+    if (!item.Price) {
+      return false;
+    }
+  
+    const itemPrice = parseFloat(item.Price.replace('€', '').replace('.', '').trim());
+  
+    const isProvinciaMatch = !provincia || (item.Provincia && item.Provincia.includes(provincia));
+    const isReferenciaMatch = !referencia || (item.Id && item.Id.includes(referencia));
+    const isCiudadMatch = !ciudad || (item.Municipio && item.Municipio.includes(ciudad));
+    const isPrecioMinimoMatch = !precioMinimo || itemPrice >= precioMinimo;
+    const isPrecioMaximoMatch = !precioMaximo || itemPrice <= precioMaximo;
+  
+    return isProvinciaMatch && isReferenciaMatch && isCiudadMatch && isPrecioMinimoMatch && isPrecioMaximoMatch;
+  });
+  
+  
 
   // Paso 4: Actualizar paginación para mostrar solo objetos filtrados
   const page = parseInt(req.query.page) || 1;
@@ -270,19 +265,8 @@ app.get('/detalle/:id', (req, res) => {
 });
 
 
-
 app.use('/', loginRoutes);
-// app.get('/', (req, res) => {
-//   res.render('home', { data: data }, (err, html) => {
-//     if (err) {
-//       console.log(err);
-//       res.status(500).send('Error al renderizar la página');
-//     } else {
-//       console.log(data);
-//       res.send(html);
-//     }
-//   });
-// });
+
 
 const hbs = require('handlebars');
 

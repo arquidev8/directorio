@@ -70,9 +70,34 @@
       </select>
     </div>
     <div class="flex flex-col w-full items-start mb-4 lg:flex lg:items-start m-7">
-      <label for="precio" class="text-white w-full lg:w-2/5 py-3" style="line-height: -3.2;"><strong>Precio:</strong></label>
-      <input type="number" id="precio" name="precio" class="w-full lg:w-4/4 px-2 py-1 mb-3 border border-gray-300 rounded">
+      <label for="ciudad" class="text-white w-full lg:w-2/5 py-3" style="line-height: -3.2;"><strong>Ciudad:</strong></label>
+      <input type="text" id="ciudad" name="ciudad" class="w-full lg:w-4/4 px-2 py-1 mb-3 border border-gray-300 rounded">
     </div>
+    <div class="flex flex-col w-full items-start mb-4 lg:flex lg:items-start m-7">
+      <label for="referencia" class="text-white w-full lg:w-2/5 py-3" style="line-height: -3.2;"><strong>Referencia:</strong></label>
+      <input type="text" id="referencia" name="referencia" class="w-full lg:w-4/4 px-2 py-1 mb-3 border border-gray-300 rounded">
+    </div>
+    <div class="flex flex-col w-full items-start mb-4 lg:flex lg:items-start m-7">
+      <label for="precioMinimo" class="text-white w-full lg:w-2/3 py-0" style="line-height: -2.1;"><strong>Precio Mín:</strong></label>
+      <select id="precioMinimo" name="precioMinimo" class="w-full lg:w-4/4 px-2 py-1 mb-3 border border-gray-300 rounded">
+        <option value="">Selecciona un precio mínimo</option>
+        <option value="50000">50.000 €</option>
+        <option value="100000">100.000 €</option>
+        <option value="150000">150.000 €</option>
+        <!-- Agrega más opciones de precio mínimo aquí -->
+      </select>
+    </div>
+    <div class="flex flex-col w-full items-start mb-4 lg:flex lg:items-start m-7">
+      <label for="precioMaximo" class="text-white w-full lg:w-2/3 py-0" style="line-height: -2.1;"><strong>Precio Máx:</strong></label>
+      <select id="precioMaximo" name="precioMaximo" class="w-full lg:w-4/4 px-2 py-1 mb-3 border border-gray-300 rounded">
+        <option value="">Selecciona un precio máximo</option>
+        <option value="100000">100.000 €</option>
+        <option value="200000">200.000 €</option>
+        <option value="300000">300.000 €</option>
+        <!-- Agrega más opciones de precio máximo aquí -->
+      </select>
+    </div>
+
     <button type="submit" class="self-center text-white nav-link font-semibold border-2 border-white hover:bg-white hover:text-green-700 py-2 px-8 rounded-md m-7">Filtrar</button>
   </form>
 </div>
@@ -87,8 +112,9 @@
             <h1><strong>{{this.Title}}</strong></h1>
             <p data-referencia><strong>Referencia:</strong> {{this.Id}}</p>
             <p data-provincia><strong>Provincia:</strong> {{this.Provincia}}</p>
+            <p data-municipio><strong>Ciudad:</strong> {{this.Municipio}}</p>
             <p><strong>Precio:</strong> {{this.Price}}</p>
-            <p><strong>Superficie:</strong> {{this.MetrosCuadrados}}</p>
+            <p><strong>Superficie:</strong> {{this.MetrosCuadrados}} m2</p>
             <p><strong>Dormitorios:</strong> {{this.Dormitorios}}</p>
             <p><strong>Baños:</strong> {{this.Baños}}</p>
           </div>
