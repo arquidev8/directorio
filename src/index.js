@@ -112,7 +112,8 @@ const mysql = require("mysql");
 const session = require("express-session");
 const bodyParser = require('body-parser');
 const loginRoutes = require('./routes/login');
-
+const dotenv = require('dotenv');
+require('dotenv').config();
 
 
 app.set('views', __dirname + '/views');
@@ -135,12 +136,13 @@ app.use(bodyParser.json());
 // }))
 
 app.use(myconnection(mysql, {
-  host : 'aws.connect.psdb.cloud',
-  user : 'ge06l2q7jvzmngqlbjon',
-  password : 'pscale_pw_XjDOg3HRQqpj78OC5e8VmLntSKrEAAwUMSxaUDk4gZf',
-  database : 'directorio',
-  ssl: true
-}))
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
+  ssl: process.env.DB_SSL === 'true'
+}));
+
 
 
 app.use(session({
