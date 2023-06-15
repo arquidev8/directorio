@@ -249,9 +249,43 @@ app.post('/filtrar', (req, res) => {
 
 
 
+// app.get('/detalle/:id', (req, res) => {
+//   const id = req.params.id;
+//   const detalle = data.find((item) => item.Id == id); // Usa 'Id' y '==' en lugar de 'id' y '==='
+//   console.log(detalle);
+  
+//   res.render('detallePropiedad', { detalle: detalle, name: req.session.name }, (err, html) => {
+//     if (err) {
+//       console.log(err);
+//       res.status(500).send('Error al renderizar la página');
+//     } else {
+//       console.log(detalle)
+//       console.log(id);
+//       res.send(html);
+//     }
+//   });
+// });
+
+
 app.get('/detalle/:id', (req, res) => {
   const id = req.params.id;
   const detalle = data.find((item) => item.Id == id); // Usa 'Id' y '==' en lugar de 'id' y '==='
+
+  if (detalle && detalle.ImageSources) {
+    // Verificar si ImageSources es una cadena
+    if (typeof detalle.ImageSources === 'string') {
+      // Reemplazar las comillas simples por comillas dobles
+      detalle.ImageSources = detalle.ImageSources.replace(/'/g, '"');
+  
+      // Convertir la cadena "ImageSources" en un arreglo
+      detalle.ImageSources = JSON.parse(detalle.ImageSources);
+    } else {
+      // Si ImageSources no es una cadena, asignar un arreglo vacío
+      detalle.ImageSources = [];
+    }
+  }
+  
+
   console.log(detalle);
   
   res.render('detallePropiedad', { detalle: detalle, name: req.session.name }, (err, html) => {
@@ -265,6 +299,9 @@ app.get('/detalle/:id', (req, res) => {
     }
   });
 });
+
+
+
 
 
 app.use('/', loginRoutes);
