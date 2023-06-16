@@ -13,7 +13,7 @@
     
   <div class="container mx-auto py-8 bg-red-600 rounded">
   <form id="filtros" action="/filtrar" method="POST" class="w-full lg:w-1/2 mx-auto flex flex-wrap lg:flex-nowrap space-y-4 lg:space-x-4 items-center">
-    <div class="flex flex-col w-full items-start mb-4 lg:flex lg:items-start m-7">
+    <div class="flex flex-col w-full items-start mb-3 lg:flex lg:items-start m-7">
       <label for="provincia" class="text-white w-full lg:w-2/5" style="line-height: 2;"><strong>Provincia</strong></label>
       <select id="provincia" name="provincia" class="w-full lg:w-5/4 px-2 py-1 mt-2 border border-gray-300 rounded">
         <option value="">Seleccionar</option>
@@ -69,13 +69,188 @@
         <!-- ... -->
       </select>
     </div>
-    <div class="flex flex-col w-full items-start mb-4 lg:flex lg:items-start m-7">
-      <label for="ciudad" class="selectCiudad text-white w-full lg:w-2/5 py-3" style="line-height: -3.2;"><strong>Ciudad</strong></label>
-      <input type="text" id="ciudad" name="ciudad" class="w-full lg:w-4/4 px-2 py-1 mb-3 border border-gray-300 rounded">
+    <div class="flex flex-col w-full items-start mb-6 lg:flex lg:items-start m-7">
+      <label for="ciudad" class="selectCiudad text-white w-full lg:w-2/5 py-1 mb-2" style="line-height: -3.5px;"><strong>Ciudad</strong></label>
+      <select id="ciudad" name="ciudad" class="w-full lg:w-5/4 px-2 py-1 mt-0 border border-gray-300 rounded">
+        <option value="">Seleccionar</option>  
+        <option value="Álava">Álava</option>
+        <option value="Albacete">Albacete</option>
+        <option value="Alicante">Alicante</option>
+        <option value="Almería">Almería</option>
+        <option value="Asturias">Asturias</option>
+        <option value="Ávila">Ávila</option>
+        <option value="Badajoz">Badajoz</option>
+        <option value="Barcelona">Barcelona</option>
+        <option value="Burgos">Burgos</option>
+        <option value="Cáceres">Cáceres</option>
+        <option value="Cádiz">Cádiz</option>
+        <option value="Cantabria">Cantabria</option>
+        <option value="Castellón">Castellón</option>
+        <option value="Ciudad Real">Ciudad Real</option>
+        <option value="Córdoba">Córdoba</option>
+        <option value="Cuenca">Cuenca</option>
+        <option value="Gerona">Gerona</option>
+        <option value="Granada">Granada</option>
+        <option value="Guadalajara">Guadalajara</option>
+        <option value="Guipúzcoa">Guipúzcoa</option>
+        <option value="Huelva">Huelva</option>
+        <option value="Huesca">Huesca</option>
+        <option value="Jaén">Jaén</option>
+        <option value="La Coruña">La Coruña</option>
+        <option value="La Rioja">La Rioja</option>
+        <option value="Las Palmas">Las Palmas</option>
+        <option value="León">León</option>
+        <option value="Lérida">Lérida</option>
+        <option value="Lugo">Lugo</option>
+        <option value="Madrid">Madrid</option>
+        <option value="Málaga">Málaga</option>
+        <option value="Murcia">Murcia</option>
+        <option value="Navarra">Navarra</option>
+        <option value="Orense">Orense</option>
+        <option value="Palencia">Palencia</option>
+        <option value="Alcobendas">Alcobendas</option>
+        <option value="Reus">Reus</option>
+        <option value="San Fernando">San Fernando</option>
+        <option value="Benidorm">Benidorm</option>
+        <option value="Mérida">Mérida</option>
+        <option value="Manresa">Manresa</option>
+        <option value="Zamora">Zamora</option>
+        <option value="Ávila">Ávila</option>
+        <option value="Fuengirola">Fuengirola</option>
+        <option value="Aranjuez">Aranjuez</option>
+        <option value="Torrevieja">Torrevieja</option>
+        <option value="Linares">Linares</option>
+        <option value="Elda">Elda</option>
+        <option value="Roquetas de Mar">Roquetas de Mar</option>
+        <option value="Huesca">Huesca</option>
+        <option value="Motril">Motril</option>
+        <option value="Vélez-Málaga">Vélez-Málaga</option>
+        <option value="Cártama">Cártama</option>
+        <option value="Sagunto">Sagunto</option>
+        <option value="Figueres">Figueres</option>
+        <option value="Vilanova i la Geltrú">Vilanova i la Geltrú</option>
+        <option value="Olot">Olot</option>
+        <option value="Vic">Vic</option>
+        <option value="Blanes">Blanes</option>
+        <option value="Alcalá la Real">Alcalá la Real</option>
+        <option value="Martorell">Martorell</option>
+        <option value="Mijas">Mijas</option>
+        <option value="La Línea de la Concepción">La Línea de la Concepción</option>
+        <option value="Calvià">Calvià</option>
+        <option value="Adeje">Adeje</option>
+        <option value="San Bartolomé de Tirajana">San Bartolomé de Tirajana</option>
+        <option value="El Puerto de Santa María">El Puerto de Santa María</option>
+        <option value="Alcoy">Alcoy</option>
+        <option value="Ronda">Ronda</option>
+        <option value="Torremolinos">Torremolinos</option>
+        <option value="Vila-seca">Vila-seca</option>
+        <option value="Ribeira">Ribeira</option>
+        <option value="Tenerife">Tenerife</option>
+        <option value="Ibiza">Ibiza</option>
+        <option value="Lanzarote">Lanzarote</option>
+        <option value="Fuerteventura">Fuerteventura</option>
+        <option value="La Palma">La Palma</option>
+        <option value="La Gomera">La Gomera</option>
+        <option value="La Graciosa">La Graciosa</option>
+        <option value="Formentera">Formentera</option>
+        <option value="Menorca">Menorca</option>
+        <option value="Mahón">Mahón</option>
+        <option value="Ciudad Real">Ciudad Real</option>
+        <option value="Guadalajara">Guadalajara</option>
+        <option value="Mérida">Mérida</option>
+        <option value="Alcalá de Guadaíra">Alcalá de Guadaíra</option>
+        <option value="Jerez de los Caballeros">Jerez de los Caballeros</option>
+        <option value="Sanlúcar de Barrameda">Sanlúcar de Barrameda</option>
+        <option value="Chiclana de la Frontera">Chiclana de la Frontera</option>
+        <option value="Ronda">Ronda</option>
+        <option value="Écija">Écija</option>
+        <option value="Utrera">Utrera</option>
+        <option value="Alhaurín de la Torre">Alhaurín de la Torre</option>
+        <option value="Rincón de la Victoria">Rincón de la Victoria</option>
+        <option value="Coín">Coín</option>
+        <option value="Lebrija">Lebrija</option>
+        <option value="Tomares">Tomares</option>
+        <option value="Alcalá la Real">Alcalá la Real</option>
+        <option value="Martos">Martos</option>
+        <option value="Baza">Baza</option>
+        <option value="Loja">Loja</option>
+        <option value="Baena">Baena</option>
+        <option value="Vélez-Málaga">Vélez-Málaga</option>
+        <option value="Rute">Rute</option>
+        <option value="Almuñécar">Almuñécar</option>
+        <option value="Órgiva">Órgiva</option>
+        <option value="Baeza">Baeza</option>
+        <option value="Andújar">Andújar</option>
+        <option value="Martorell">Martorell</option>
+        <option value="Sant Cugat del Vallès">Sant Cugat del Vallès</option>
+        <option value="Mataró">Mataró</option>
+        <option value="Manresa">Manresa</option>
+        <option value="Granollers">Granollers</option>
+        <option value="Vic">Vic</option>
+        <option value="Vilanova i la Geltrú">Vilanova i la Geltrú</option>
+        <option value="Sitges">Sitges</option>
+        <option value="Manacor">Manacor</option>
+        <option value="Inca">Inca</option>
+        <option value="Alcúdia">Alcúdia</option>
+        <option value="Pollença">Pollença</option>
+        <option value="Felanitx">Felanitx</option>
+        <option value="Sóller">Sóller</option>
+        <option value="Calvià">Calvià</option>
+        <option value="Llucmajor">Llucmajor</option>
+        <option value="Andratx">Andratx</option>
+        <option value="Sant Antoni de Portmany">Sant Antoni de Portmany</option>
+        <option value="Sant Josep de sa Talaia">Sant Josep de sa Talaia</option>
+        <option value="Alaior">Alaior</option>
+        <option value="Ciutadella de Menorca">Ciutadella de Menorca</option>
+        <option value="Es Castell">Es Castell</option>
+        <option value="Sant Lluís">Sant Lluís</option>
+        <option value="Calpe">Calpe</option>
+        <option value="Denia">Denia</option>
+        <option value="Benidorm">Benidorm</option>
+        <option value="Torrevieja">Torrevieja</option>
+        <option value="Orihuela">Orihuela</option>
+        <option value="Elda">Elda</option>
+        <option value="Petrer">Petrer</option>
+        <option value="Novelda">Novelda</option>
+        <option value="Villena">Villena</option>
+        <option value="Alcoy">Alcoy</option>
+        <option value="Crevillent">Crevillent</option>
+        <option value="Guardamar del Segura">Guardamar del Segura</option>
+        <option value="Altea">Altea</option>
+        <option value="Xàbia">Xàbia</option>
+        <option value="Oliva">Oliva</option>
+        <option value="Gandia">Gandia</option>
+        <option value="Sagunto">Sagunto</option>
+        <option value="Paterna">Paterna</option>
+        <option value="Burjassot">Burjassot</option>
+        <option value="Torrent">Torrent</option>
+        <option value="Mislata">Mislata</option>
+        <option value="Picassent">Picassent</option>
+        <option value="Manises">Manises</option>
+        <option value="Quart de Poblet">Quart de Poblet</option>
+        <option value="Alzira">Alzira</option>
+        <option value="Ontinyent">Ontinyent</option>
+        <option value="Xàtiva">Xàtiva</option>
+        <option value="Requena">Requena</option>
+        <option value="Buñol">Buñol</option>
+        <option value="Almansa">Almansa</option>
+        <option value="Villarrobledo">Villarrobledo</option>
+        <option value="Hellín">Hellín</option>
+        <option value="La Roda">La Roda</option>
+        <option value="Caudete">Caudete</option>
+        <option value="Alcalá del Júcar">Alcalá del Júcar</option>
+        <option value="Socuéllamos">Socuéllamos</option>
+        <option value="Tomelloso">Tomelloso</option>
+        <option value="Manzanares">Manzanares</option>
+        <option value="Valdepeñas">Valdepeñas</option>
+        <option value="Puertollano">Puertollano</option>
+      </select>
+       
+  
     </div>
     <div class="flex flex-col w-full items-start mb-4 lg:flex lg:items-start m-7">
       <label for="referencia" class="text-white w-full lg:w-2/5 py-3" style="line-height: -3.2;"><strong>Referencia</strong></label>
-      <input type="text" id="referencia" name="referencia" class="w-full lg:w-4/4 px-2 py-1 mb-3 border border-gray-300 rounded">
+      <input type="text" id="referencia" name="referencia" class="w-full h-8 lg:w-4/4 px-2 py-2 mb-3 border border-gray-300 rounded">
     </div>
     <div class="flex flex-col w-full items-start mb-4 lg:flex lg:items-start m-7">
       <label for="precioMinimo" class="text-white w-full lg:w-2/3 py-0" style="line-height: -2.1;"><strong>Precio Mín</strong></label>

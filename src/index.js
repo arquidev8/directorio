@@ -176,7 +176,8 @@ app.post('/filtrar', (req, res) => {
   
   const provincia = req.body.provincia;
   const referencia = req.body.referencia ? req.body.referencia.toUpperCase() : '';
-  const ciudad = capitalizeFirstLetter(req.body.ciudad);
+  // const ciudad = capitalizeFirstLetter(req.body.ciudad);
+  const ciudad = req.body.ciudad;
 
 
   const precioMinimo = req.body.precioMinimo;
