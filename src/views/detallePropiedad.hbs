@@ -1,120 +1,4 @@
-{{!-- <!DOCTYPE html>
-<html>
-<head>
-    <title>Detalle de propiedad</title>
-</head>
-<body>
-    {{#if propiedad}}
-        <h1>{{propiedad.Title}}</h1>
-        <p>{{propiedad.Provincia}}</p>
-        <img src="{{propiedad.MainPhoto}}" alt="Imagen de propiedad" />
-    {{else}}
-        <p>Propiedad no encontrada</p>
-    {{/if}}
-</body>
-</html> --}}
 
-
- <body>
-
-    {{!-- <div class="barraRoja" style="background-color: white; width: 100%; height: 120px;">
-        <img height="60px" src="https://i.postimg.cc/ZnjV8rNs/Artboard-1.png" alt="">
-    </div> --}}
-   
-{{!-- <body>
-    {{#if detalle}}
-        <h1>{{detalle.Title}}</h1>
-        <p>{{detalle.Provincia}}</p>
-        <img src="{{detalle.MainPhoto}}" alt="Imagen de propiedad" />
-        <img src="{{detall.ImageSources}}" alt="Imagenes de propiedad">
-    {{else}}
-        <p>Propiedad no encontrada</p>
-    {{/if}}
-</body>
-
-
-<style>
-
-  body {
-    font-family: Montserrat, sans-serif;
-    background-color: #f5f5f5;
-    margin: 0;
-    padding: 0;
-  }
-
-  .barraRoja{
-    margin-bottom: 80px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-
-  }
-  
-  .cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    padding: 0px;
-  }
-  
-  .card {
-    background-color: white;
-    border-radius: 6px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
-    margin: 20px;
-    max-width: 100%;
-    overflow: hidden;
-    transition: 0.3s;
-    width: 100%;
-  }
-  
-  .card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-  }
-  
-  .card-image {
-    width: 100%;
-    height: auto;
-  }
-  
-  .card-details {
-    padding: 25px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: start;
-  }
-  
-  .card-details h4 {
-    margin: 0;
-    font-size: 14px;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-  }
-  
-  .card-details p {
-    margin: 0;
-    margin-top: 10px;
-    color: black;
-  }
-  
-  /* Media queries para diferentes tamaños de pantalla */
-  @media screen and (min-width: 40em) {
-    .card {
-      flex: 0 1 calc(100% - 1em);
-      max-width: calc(50% - 1em);
-    }
-  }
-  
-  @media screen and (min-width: 70em) {
-    .card {
-      flex: 0 1 calc(25% - 1em);
-      max-width: calc(25% - 1em);
-    }
-  }
-  
-</style> --}}
 
 
 
@@ -152,3 +36,24 @@
   </div>
 </body>
 
+<style>
+  body {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-image: url("https://i.postimg.cc/bN1TjWfL/rascacielos-vista-angulo-1359-159.jpg");
+    background-size: cover;
+    background-position: center;
+  }
+
+  body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 110%;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9));
+    z-index: -1;
+  }
+</style>

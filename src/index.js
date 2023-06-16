@@ -165,12 +165,7 @@ const data = data1.concat(data2);
 
 app.post('/filtrar', (req, res) => {
 
-  // function formatPrice(price) {
-  //   const formatter = new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' });
-  //   const formattedPrice = formatter.format(price);
-  //   return formattedPrice;
-  // }
-
+ 
   function capitalizeFirstLetter(str) {
     if (!str) {
       return '';
@@ -187,22 +182,7 @@ app.post('/filtrar', (req, res) => {
   const precioMinimo = req.body.precioMinimo;
   const precioMaximo = req.body.precioMaximo;
 
-
-  // const filteredData = data.filter(item => {
-  //   if (!item.Price) {
-  //     return false;
-  //   }
-  
-  //   const itemPrice = parseFloat(item.Price.replace('€', '').replace('.', '').trim());
-  
-  //   return (
-  //     (provincia === '' || (item.Provincia && item.Provincia.includes(provincia))) &&
-  //     (referencia === '' || (item.Id && item.Id.includes(referencia))) &&
-  //     (ciudad === '' || (item.Municipio && item.Municipio.includes(ciudad))) &&
-  //     (isNaN(precioMinimo) || itemPrice >= precioMinimo) &&
-  //     (isNaN(precioMaximo) || itemPrice <= precioMaximo)
-  //   );
-  // });
+  const propiedadesTotales = data.length;
 
   const filteredData = data.filter(item => {
     if (!item.Price) {
@@ -219,9 +199,7 @@ app.post('/filtrar', (req, res) => {
   
     return isProvinciaMatch && isReferenciaMatch && isCiudadMatch && isPrecioMinimoMatch && isPrecioMaximoMatch;
   });
-  
-  
-
+   
   // Paso 4: Actualizar paginación para mostrar solo objetos filtrados
   const page = parseInt(req.query.page) || 1;
   const limit = 200;
@@ -235,7 +213,10 @@ app.post('/filtrar', (req, res) => {
     pages.push(i);
   }
 
-  res.render('home', { data: paginatedData, pages, name: req.session.name }, (err, html) => {
+  const totalPropiedadesFiltradas = filteredData.length;
+
+
+  res.render('home', { data: paginatedData, pages, name: req.session.name, totalPropiedadesFiltradas, provincia, propiedadesTotales, referencia, ciudad, precioMaximo, precioMinimo  }, (err, html) => {
     if (err) {
       console.log(err);
       res.status(500).send('Error al renderizar la página');
@@ -244,6 +225,8 @@ app.post('/filtrar', (req, res) => {
     }
   });
 });
+
+
 
 
 
@@ -332,7 +315,7 @@ app.get('/', (req, res) => {
   }
 
   const paginatedData = data.slice(skip, skip + limit);
-  res.render('home', { data: paginatedData, pages, name: req.session.name }, (err, html) => {
+  res.render('home', { data: paginatedData, pages, name: req.session.name, totalPropiedades }, (err, html) => {
     if (err) {
       console.log(err);
       res.status(500).send('Error al renderizar la página');
