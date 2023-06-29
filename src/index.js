@@ -168,7 +168,6 @@ const data = data1.concat(data2, data3);
 
 app.post('/filtrar', (req, res) => {
 
- 
   function capitalizeFirstLetter(str) {
     if (!str) {
       return '';
@@ -176,32 +175,33 @@ app.post('/filtrar', (req, res) => {
     return str[0].toUpperCase() + str.slice(1).toLowerCase();
   }
   
-  
   const provincia = req.body.provincia;
   const referencia = req.body.referencia ? req.body.referencia.toUpperCase() : '';
   // const ciudad = capitalizeFirstLetter(req.body.ciudad);
   const ciudad = req.body.ciudad;
-
-
   const precioMinimo = req.body.precioMinimo;
   const precioMaximo = req.body.precioMaximo;
 
+  
   const propiedadesTotales = data.length;
 
   const filteredData = data.filter(item => {
     if (!item.Price) {
       return false;
     }
-  
-    const itemPrice = parseFloat(item.Price.replace('€', '').replace('.', '').trim());
-  
+    // const itemPrice = parseFloat(item.Price.replace('€', '').replace('.', '').replace(',', '').trim());
+
+    const itemPrice = parseFloat(item.Price.replace('€', '').replace('.', '').replace('.','').replace('.','').trim());
+    // const itemPrice = parseFloat(item.Price.replace('€', '').trim().replace(',', '.').replace(/\.(?=.*\.)/g, ''));
     const isProvinciaMatch = !provincia || (item.Provincia && item.Provincia.includes(provincia));
     const isReferenciaMatch = !referencia || (item.Id && item.Id.includes(referencia));
     const isCiudadMatch = !ciudad || (item.Municipio && item.Municipio.includes(ciudad));
     const isPrecioMinimoMatch = !precioMinimo || itemPrice >= precioMinimo;
-    const isPrecioMaximoMatch = !precioMaximo || itemPrice <= precioMaximo;
-  
+    const isPrecioMaximoMatch = !precioMaximo || itemPrice >= precioMaximo;
+    
     return isProvinciaMatch && isReferenciaMatch && isCiudadMatch && isPrecioMinimoMatch && isPrecioMaximoMatch;
+  
+    
   });
    
   // Paso 4: Actualizar paginación para mostrar solo objetos filtrados
@@ -229,11 +229,6 @@ app.post('/filtrar', (req, res) => {
     }
   });
 });
-
-
-
-
-
 
 
 // app.get('/detalle/:id', (req, res) => {
@@ -288,9 +283,6 @@ app.get('/detalle/:id', (req, res) => {
 });
 
 
-
-
-
 app.use('/', loginRoutes);
 
 
@@ -303,6 +295,22 @@ hbs.registerHelper('if_eq', function(a, b, opts) {
     return opts.inverse(this);
   }
 });
+
+hbs.registerHelper('if_or', function() {
+  const args = Array.prototype.slice.call(arguments, 0, -1);
+  const opts = arguments[arguments.length - 1];
+  
+  // Verifica si alguno de los argumentos es verdadero
+  const hasTrue = args.some(Boolean);
+
+  if (hasTrue) {
+    return opts.fn(this);
+  } else {
+    return opts.inverse(this);
+  }
+});
+
+
 
 app.get('/', (req, res) => {
   if(req.session.loggedin == true) {

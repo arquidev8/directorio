@@ -226,13 +226,42 @@
   </form>
 </div>
 
-{{#if provincia}}
+{{!-- {{#if provincia}}
   <h1 class="custom-text text-3x2 font-semibold text-gray-700 mt-4 lg:mt-0 m-10 ml-13 sm:text-base">Total de propiedades en {{provincia}}: <span class="text-green-600">{{totalPropiedadesFiltradas}}</span></h1>
 {{else}}
   <h1 class="custom-text text-3x2 font-semibold text-gray-700 mt-4 lg:mt-5 m-10 ml-13 sm:text-base">Total de propiedades: <span class="text-green-600">{{totalPropiedades}}</span></h1>
+{{/if}} --}}
+
+{{!-- {{#if_or provincia ciudad referencia precioMinimo precioMaximo}}
+  <h1 class="custom-text text-3x2 font-semibold text-gray-700 mt-4 lg:mt-0 m-10 ml-13 sm:text-base">Total de propiedades filtradas: <span class="text-green-600">{{totalPropiedadesFiltradas}}</span></h1>
+{{else}}
+  <h1 class="custom-text text-3x2 font-semibold text-gray-700 mt-4 lg:mt-5 m-10 ml-13 sm:text-base">Total de propiedades: <span class="text-green-600">{{totalPropiedades}}</span></h1>
+{{/if_or}} --}}
+
+{{#if provincia}}
+  <h1 class="custom-text text-3x2 font-semibold text-gray-700 mt-4 lg:mt-0 m-10 ml-13 sm:text-base">Total de propiedades en {{provincia}}
+    {{#if precioMinimo}} con precio mínimo {{precioMinimo}}{{/if}}
+    {{#if precioMaximo}} precio máximo {{precioMaximo}}{{/if}}
+    : <span class="text-green-600">{{totalPropiedadesFiltradas}}</span></h1>
+{{/if}}
+{{#if ciudad}}
+  <h1 class="custom-text text-3x2 font-semibold text-gray-700 mt-4 lg:mt-0 m-10 ml-13 sm:text-base">Total de propiedades en {{ciudad}}
+    {{#if precioMinimo}} con precio mínimo {{precioMinimo}}{{/if}}
+    {{#if precioMaximo}} precio máximo {{precioMaximo}}{{/if}}
+    : <span class="text-green-600">{{totalPropiedadesFiltradas}}</span></h1>
+{{/if}}
+{{#if referencia}}
+  <h1 class="custom-text text-3x2 font-semibold text-gray-700 mt-4 lg:mt-0 m-10 ml-13 sm:text-base">Total de propiedades con referencia {{referencia}}
+    {{#if precioMinimo}} con precio mínimo {{precioMinimo}}{{/if}}
+    {{#if precioMaximo}} precio máximo {{precioMaximo}}{{/if}}
+    : <span class="text-green-600">{{totalPropiedadesFiltradas}}</span></h1>
 {{/if}}
 
 
+{{#if_or provincia ciudad referencia precioMinimo precioMaximo}}
+{{else}}
+  <h1 class="custom-text text-3x2 font-semibold text-gray-700 mt-4 lg:mt-5 m-10 ml-13 sm:text-base">Total de propiedades: <span class="text-green-600">{{totalPropiedades}}</span></h1>
+{{/if_or}}
 
 
 
@@ -272,23 +301,13 @@
   </body>
 </html>
 
-
-
-
-
 <style>
-
-
-
-
   .custom-text {
   font-size: 24px; /* Ajusta el tamaño de la fuente aquí */
   margin-left: 70px; /* Ajusta el margen izquierdo aquí */
   margin-top: 20px;
  
 }
-
-
   body {
     font-family: Montserrat, sans-serif;
     background-color: white;
