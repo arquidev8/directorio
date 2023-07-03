@@ -195,41 +195,41 @@
       <label for="referencia" class="text-white w-full lg:w-2/5 py-3" style="line-height: -3.2;"><strong>Referencia</strong></label>
       <input type="text" id="referencia" name="referencia" class="referencia w-full h-8 lg:w-4/4 px-2 py-2 mb-3 border border-gray-300 rounded">
     </div>
-    <div class="flex flex-col w-full items-start mb-4 lg:flex lg:items-start m-7">
+    {{!-- <div class="flex flex-col w-full items-start mb-4 lg:flex lg:items-start m-7">
       <label for="precioMinimo" class="text-white w-full lg:w-2/3 py-3" style="line-height: -2.1;"><strong>Precio Mín</strong></label>
       <select id="precioMinimo" name="precioMinimo" class="pMinimo w-full lg:w-5/4 px-2 py-1 mb-3 border border-gray-300 rounded">
         <option value="">Selecciona un precio mínimo</option>
-        <option value="50000">0 €</option>
-        <option value="100000">50.000 €</option>
-        <option value="150000">100.000 €</option>
-        <option value="200000">150.000 €</option>
-        <option value="300000">200.000 €</option>
-        <option value="500000">250.000 €</option>
-        <option value="500000">300.000 €</option>
-        <option value="500000">350.000 €</option>
-        <option value="500000">400.000 €</option>
-        <option value="500000">450.000 €</option>
+        <option value="0">0 €</option>
+        <option value="50000">50.000 €</option>
+        <option value="100000">100.000 €</option>
+        <option value="150000">150.000 €</option>
+        <option value="200000">200.000 €</option>
+        <option value="250000">250.000 €</option>
+        <option value="300000">300.000 €</option>
+        <option value="350000">350.000 €</option>
+        <option value="400000">400.000 €</option>
+        <option value="450000">450.000 €</option>
         <option value="500000">500.000 €</option>
-        <option value="500000">550.000 €</option>
+        <option value="550000">550.000 €</option>
         <!-- Agrega más opciones de precio mínimo aquí -->
       </select>
-    </div>
+    </div> --}}
     <div class="flex flex-col w-full items-start mb-4 lg:flex lg:items-start m-7">
-      <label for="precioMaximo" class="text-white w-full lg:w-2/3 py-3" style="line-height: -2.1;"><strong>Precio Máx</strong></label>
+      <label for="precioMaximo" class="text-white md:w-3/1 w-3/1 lg:w-4/4 py-3" style="line-height: -2.1;"><strong>Precio Máximo</strong></label>
       <select id="precioMaximo" name="precioMaximo" class="pMaximo w-full lg:w-4/4 px-2 py-1 mb-3 border border-gray-300 rounded">
         <option value="">Selecciona un precio máximo</option>
-        <option value="600000" >50.000 €</option>
-        <option value="150000">100.000 €</option>
-        <option value="200000">150.000 €</option>
-        <option value="300000">200.000 €</option>
-        <option value="500000">250.000 €</option>
-        <option value="500000">300.000 €</option>
-        <option value="800000">400.000 €</option>
-        <option value="800000">500.000 €</option>
-        <option value="800000">600.000 €</option>
-        <option value="800000">700.000 €</option>
+        <option value="50000" >50.000 €</option>
+        <option value="100000">100.000 €</option>
+        <option value="150000">150.000 €</option>
+        <option value="200000">200.000 €</option>
+        <option value="250000">250.000 €</option>
+        <option value="300000">300.000 €</option>
+        <option value="400000">400.000 €</option>
+        <option value="500000">500.000 €</option>
+        <option value="600000">600.000 €</option>
+        <option value="700000">700.000 €</option>
         <option value="800000">800.000 €</option>
-        <option value="800000">900.000 €</option>
+        <option value="900000">900.000 €</option>
         <option value="1000000">1.000.000 €</option>
         <option value="1200000">1.200.000 €</option>
         <option value="1500000">1.500.000 €</option>
@@ -262,7 +262,7 @@
 {{#if provincia}}
   <h1 class="custom-text text-3x2 font-semibold text-gray-700 mt-4 lg:mt-0 m-10 ml-13 sm:text-base">Total de propiedades en {{provincia}}
     {{#if precioMinimo}} con precio mínimo {{precioMinimo}}{{/if}}
-    {{#if precioMaximo}} precio máximo {{precioMaximo}}{{/if}}
+    {{#if precioMaximo}} con precio máximo {{precioMaximo}}{{/if}}
     : <span class="text-green-600">{{totalPropiedadesFiltradas}}</span></h1>
 {{/if}}
 {{#if busqueda}}
@@ -273,13 +273,13 @@
 {{#if ciudad}}
   <h1 class="custom-text text-3x2 font-semibold text-gray-700 mt-4 lg:mt-0 m-10 ml-13 sm:text-base">Total de propiedades en {{ciudad}}
     {{#if precioMinimo}} con precio mínimo {{precioMinimo}}{{/if}}
-    {{#if precioMaximo}} precio máximo {{precioMaximo}}{{/if}}
+    {{#if precioMaximo}} con precio máximo {{precioMaximo}}{{/if}}
     : <span class="text-green-600">{{totalPropiedadesFiltradas}}</span></h1>
 {{/if}}
 {{#if referencia}}
   <h1 class="custom-text text-3x2 font-semibold text-gray-700 mt-4 lg:mt-0 m-10 ml-13 sm:text-base">Total de propiedades con referencia {{referencia}}
     {{#if precioMinimo}} con precio mínimo {{precioMinimo}}{{/if}}
-    {{#if precioMaximo}} precio máximo {{precioMaximo}}{{/if}}
+    {{#if precioMaximo}} con precio máximo {{precioMaximo}}{{/if}}
     : <span class="text-green-600">{{totalPropiedadesFiltradas}}</span></h1>
 {{/if}}
 
@@ -313,6 +313,9 @@
       {{/each}}
     </div>
 
+
+
+
 <!-- Resto del contenido de home.hbs -->
 
 <div class="flex items-center justify-center flex-wrap">
@@ -324,6 +327,67 @@
     {{/each}}
   </nav>
 </div>
+
+
+<script>
+// Obtener todos los elementos de filtro
+const filtros = document.querySelectorAll('select');
+
+// Agregar un event listener a cada elemento de filtro
+filtros.forEach(filtro => {
+  filtro.addEventListener('change', (event) => {
+    // Obtener el valor seleccionado
+    const valorSeleccionado = event.target.value;
+    
+    // Obtener el nombre del filtro
+    const nombreFiltro = event.target.name;
+    
+    // Almacenar el valor seleccionado en localStorage
+    localStorage.setItem(nombreFiltro, valorSeleccionado);
+  });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Obtener todos los elementos de filtro
+  const filtros = document.querySelectorAll('select');
+
+  // Establecer el valor seleccionado para cada filtro basado en el valor almacenado
+  filtros.forEach(filtro => {
+    // Obtener el nombre del filtro
+    const nombreFiltro = filtro.name;
+    
+    // Obtener el valor almacenado del localStorage
+    const valorSeleccionado = localStorage.getItem(nombreFiltro);
+    
+    // Establecer el valor seleccionado para el filtro
+    if (valorSeleccionado) {
+      filtro.value = valorSeleccionado;
+    }
+  });
+});
+
+function resetSelects() {
+  // Eliminar los valores almacenados en el localStorage
+  localStorage.removeItem('nombreDelFiltro1');
+  localStorage.removeItem('nombreDelFiltro2');
+  // Agrega más líneas para cada filtro que quieras resetear
+
+  // Restablecer los valores seleccionados en los selects
+  filtros.forEach(filtro => {
+    filtro.value = '';
+  });
+}
+
+// Event listener para el logout
+const logoutBtn = document.getElementById('logoutBtn');
+logoutBtn.addEventListener('click', () => {
+  resetSelects();
+});
+
+
+</script>
+
+
   </body>
 </html>
 
