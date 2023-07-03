@@ -12,10 +12,10 @@
 
     
   <div class="container mx-auto py-8 bg-red-600 rounded">
-  <form id="filtros" action="/filtrar" method="POST" class="w-full lg:w-1/2 mx-auto flex flex-wrap lg:flex-nowrap space-y-4 lg:space-x-4 items-center">
+  <form id="filtros" action="/filtrar" method="POST" class="filtro w-full lg:w-1/2 mx-auto flex flex-wrap lg:flex-nowrap space-y-4 lg:space-x-4 items-center">
     <div class="flex flex-col w-full items-start mb-3 lg:flex lg:items-start m-7">
       <label for="provincia" class="text-white w-full lg:w-2/5" style="line-height: 2;"><strong>Provincia</strong></label>
-      <select id="provincia" name="provincia" class="w-full lg:w-5/4 px-2 py-1 mt-2 border border-gray-300 rounded">
+      <select id="provincia" name="provincia" class="provincia w-full lg:w-5/4 px-2 py-1 mt-2 border border-gray-300 rounded">
         <option value="">Seleccionar</option>
         <!-- Agrega las opciones de las provincias aquí -->
         <option value="Álava">Álava</option>
@@ -71,7 +71,7 @@
     </div>
     <div class="flex flex-col w-full items-start mb-6 lg:flex lg:items-start m-7">
       <label for="ciudad" class="selectCiudad text-white w-full lg:w-2/5 py-1 mb-2" style="line-height: -3.5px;"><strong>Ciudad</strong></label>
-      <select id="ciudad" name="ciudad" class="w-full lg:w-5/4 px-2 py-1 mt-0 border border-gray-300 rounded">
+      <select id="ciudad" name="ciudad" class="ciudad w-full lg:w-5/4 px-2 py-1 mt-0 border border-gray-300 rounded">
         <option value="">Seleccionar</option>
         <option value="Adeje">Adeje</option>
         <option value="Albacete">Albacete</option>
@@ -193,33 +193,54 @@
     </div>
     <div class="flex flex-col w-full items-start mb-4 lg:flex lg:items-start m-7">
       <label for="referencia" class="text-white w-full lg:w-2/5 py-3" style="line-height: -3.2;"><strong>Referencia</strong></label>
-      <input type="text" id="referencia" name="referencia" class="w-full h-8 lg:w-4/4 px-2 py-2 mb-3 border border-gray-300 rounded">
+      <input type="text" id="referencia" name="referencia" class="referencia w-full h-8 lg:w-4/4 px-2 py-2 mb-3 border border-gray-300 rounded">
     </div>
     <div class="flex flex-col w-full items-start mb-4 lg:flex lg:items-start m-7">
-      <label for="precioMinimo" class="text-white w-full lg:w-2/3 py-0" style="line-height: -2.1;"><strong>Precio Mín</strong></label>
-      <select id="precioMinimo" name="precioMinimo" class=" w-full lg:w-5/4 px-2 py-1 mb-3 border border-gray-300 rounded">
+      <label for="precioMinimo" class="text-white w-full lg:w-2/3 py-3" style="line-height: -2.1;"><strong>Precio Mín</strong></label>
+      <select id="precioMinimo" name="precioMinimo" class="pMinimo w-full lg:w-5/4 px-2 py-1 mb-3 border border-gray-300 rounded">
         <option value="">Selecciona un precio mínimo</option>
-        <option value="50000">50.000 €</option>
-        <option value="100000">100.000 €</option>
-        <option value="150000">150.000 €</option>
-        <option value="200000">200.000 €</option>
-        <option value="300000">300.000 €</option>
+        <option value="50000">0 €</option>
+        <option value="100000">50.000 €</option>
+        <option value="150000">100.000 €</option>
+        <option value="200000">150.000 €</option>
+        <option value="300000">200.000 €</option>
+        <option value="500000">250.000 €</option>
+        <option value="500000">300.000 €</option>
+        <option value="500000">350.000 €</option>
+        <option value="500000">400.000 €</option>
+        <option value="500000">450.000 €</option>
         <option value="500000">500.000 €</option>
+        <option value="500000">550.000 €</option>
         <!-- Agrega más opciones de precio mínimo aquí -->
       </select>
     </div>
     <div class="flex flex-col w-full items-start mb-4 lg:flex lg:items-start m-7">
-      <label for="precioMaximo" class="text-white w-full lg:w-2/3 py-0" style="line-height: -2.1;"><strong>Precio Máx</strong></label>
-      <select id="precioMaximo" name="precioMaximo" class="w-full lg:w-4/4 px-2 py-1 mb-3 border border-gray-300 rounded">
+      <label for="precioMaximo" class="text-white w-full lg:w-2/3 py-3" style="line-height: -2.1;"><strong>Precio Máx</strong></label>
+      <select id="precioMaximo" name="precioMaximo" class="pMaximo w-full lg:w-4/4 px-2 py-1 mb-3 border border-gray-300 rounded">
         <option value="">Selecciona un precio máximo</option>
-        <option value="600000" >600.000 €</option>
+        <option value="600000" >50.000 €</option>
+        <option value="150000">100.000 €</option>
+        <option value="200000">150.000 €</option>
+        <option value="300000">200.000 €</option>
+        <option value="500000">250.000 €</option>
+        <option value="500000">300.000 €</option>
+        <option value="800000">400.000 €</option>
+        <option value="800000">500.000 €</option>
+        <option value="800000">600.000 €</option>
+        <option value="800000">700.000 €</option>
         <option value="800000">800.000 €</option>
+        <option value="800000">900.000 €</option>
         <option value="1000000">1.000.000 €</option>
         <option value="1200000">1.200.000 €</option>
         <option value="1500000">1.500.000 €</option>
         <option value="2000000">2.000.000 €</option>
         <!-- Agrega más opciones de precio máximo aquí -->
       </select>
+    </div>
+     <div class="flex flex-col w-full items-start md:w-2/4  mb-4 lg:flex lg:items-start m-7">
+      <label for="busqueda" class="text-white md:w-3/1 w-3/1 lg:w-4/4 py-3" style="line-height: -3.2;"><strong>Busqueda Rapida</strong></label>
+      <input type="text" id="busqueda" name="busqueda" class="busqueda  h-8 px-2 py-2 mb-3 border border-gray-300 rounded ">
+
     </div>
 
     <button type="submit" class="self-center text-white nav-link font-semibold border-2 border-white hover:bg-white hover:text-green-700 py-2 px-8 rounded-md m-7">Filtrar</button>
@@ -244,6 +265,11 @@
     {{#if precioMaximo}} precio máximo {{precioMaximo}}{{/if}}
     : <span class="text-green-600">{{totalPropiedadesFiltradas}}</span></h1>
 {{/if}}
+{{#if busqueda}}
+  <h1 class="custom-text text-3x2 font-semibold text-gray-700 mt-4 lg:mt-0 m-10 ml-13 sm:text-base">Total de propiedades {{busqueda}}
+    : <span class="text-green-600">{{propiedadesFiltradasBusqueda}}</span></h1>
+{{/if}}
+
 {{#if ciudad}}
   <h1 class="custom-text text-3x2 font-semibold text-gray-700 mt-4 lg:mt-0 m-10 ml-13 sm:text-base">Total de propiedades en {{ciudad}}
     {{#if precioMinimo}} con precio mínimo {{precioMinimo}}{{/if}}
@@ -257,11 +283,11 @@
     : <span class="text-green-600">{{totalPropiedadesFiltradas}}</span></h1>
 {{/if}}
 
-
-{{#if_or provincia ciudad referencia precioMinimo precioMaximo}}
+{{#if_or provincia ciudad referencia precioMinimo precioMaximo busqueda}}
 {{else}}
   <h1 class="custom-text text-3x2 font-semibold text-gray-700 mt-4 lg:mt-5 m-10 ml-13 sm:text-base">Total de propiedades: <span class="text-green-600">{{totalPropiedades}}</span></h1>
 {{/if_or}}
+
 
 
 
@@ -302,6 +328,36 @@
 </html>
 
 <style>
+
+  .filtro{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+  }
+
+  .pMinimo{
+    width: 150px;
+  }
+  .pMaximo{
+    width: 150px;
+  }
+  .provincia{
+    width: 180px;
+ 
+  }
+  .ciudad{
+    width: 180px;
+  }
+
+
+  .busqueda {
+    width: 200px;;
+  }
+
+
+
   .custom-text {
   font-size: 24px; /* Ajusta el tamaño de la fuente aquí */
   margin-left: 70px; /* Ajusta el margen izquierdo aquí */
@@ -378,6 +434,9 @@
       flex: 0 1 calc(100% - 1em);
       max-width: calc(50% - 1em);
     }
+    .busqueda{
+      width: 250px;
+    }
   }
   
   @media screen and (min-width: 70em) {
@@ -385,6 +444,39 @@
       flex: 0 1 calc(25% - 1em);
       max-width: calc(25% - 1em);
     }
+    .busqueda{
+      width: 250px;
+    }
+  
   }
+
+  /* Media queries para diferentes tamaños de pantalla */
+@media screen and (max-width: 640px) {
+ 
+
+  .busqueda {
+    width: 320px;
+  }
+  .provincia {
+    width: 320px;
+  }
+  .ciudad {
+    width: 320px;
+  }
+  .pMinimo {
+    width: 320px;
+  }
+  .pMaximo {
+    width: 320px;
+  }
+}
+
+@media screen and (min-width: 1120px) {
+ 
+  .busqueda {
+    width: 180px;
+  }
+}
+
   
 </style>

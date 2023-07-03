@@ -168,6 +168,78 @@ const data = data1.concat(data2, data3);
 
 app.post('/filtrar', (req, res) => {
 
+  // function capitalizeFirstLetter(str) {
+  //   if (!str) {
+  //     return '';
+  //   }
+  //   return str[0].toUpperCase() + str.slice(1).toLowerCase();
+  // }
+  
+  // const provincia = req.body.provincia;
+  // const referencia = req.body.referencia ? req.body.referencia.toUpperCase() : '';
+  // // const ciudad = capitalizeFirstLetter(req.body.ciudad);
+  // const ciudad = req.body.ciudad;
+  // const precioMinimo = req.body.precioMinimo;
+  // const precioMaximo = req.body.precioMaximo;
+  // const busqueda = req.body.busqueda; 
+  // const propiedadesTotales = data.length;
+  // let propiedadesFiltradas = 0;
+
+
+  // const filteredData = data.filter(item => {
+  //   if (!item.Price) {
+  //     return false;
+  //   }
+  //   // const itemPrice = parseFloat(item.Price.replace('€', '').replace('.', '').replace(',', '').trim());
+
+  //   const itemPrice = parseFloat(item.Price.replace('€', '').replace('.', '').replace('.','').replace('.','').trim());
+  //   // const itemPrice = parseFloat(item.Price.replace('€', '').trim().replace(',', '.').replace(/\.(?=.*\.)/g, ''));
+  //   // const isProvinciaMatch = !provincia || (item.Provincia && item.Provincia.includes(provincia));
+  //   // const isReferenciaMatch = !referencia || (item.Id && item.Id.includes(referencia));
+  //   // const isCiudadMatch = !ciudad || (item.Municipio && item.Municipio.includes(ciudad));
+  //   const isPrecioMinimoMatch = !precioMinimo || itemPrice >= precioMinimo;
+  //   const isPrecioMaximoMatch = !precioMaximo || itemPrice >= precioMaximo;  
+  //   // return isProvinciaMatch && isReferenciaMatch && isCiudadMatch && isPrecioMinimoMatch && isPrecioMaximoMatch;
+  //   const isProvinciaMatch = !provincia || (item.Provincia && item.Provincia.toLowerCase().includes(provincia.toLowerCase()));
+  //   const isCiudadMatch = !ciudad || (item.Municipio && item.Municipio.toLowerCase().includes(ciudad.toLowerCase()));
+  //   const isReferenciaMatch = !referencia || (item.Id && item.Id.toLowerCase().includes(referencia.toLowerCase()));
+  //   const isBusquedaMatch = !busqueda || (
+  //     (item.Provincia && item.Provincia.toLowerCase().includes(busqueda.toLowerCase())) ||
+  //     (item.Municipio && item.Municipio.toLowerCase().includes(busqueda.toLowerCase())) ||
+  //     (item.Id && item.Id.toLowerCase().includes(busqueda.toLowerCase())) ||
+  //     (item.Title && item.Title.toLowerCase().includes(busqueda.toLowerCase())) ||
+  //     (item.Direccion && item.Direccion.toLowerCase().includes(busqueda.toLowerCase()))
+  // );
+
+  
+
+  // return isProvinciaMatch && isCiudadMatch && isReferenciaMatch && isBusquedaMatch && isPrecioMinimoMatch && isPrecioMaximoMatch;
+  
+    
+  // });
+
+  // const propiedadesFiltradasBusqueda = filteredData.reduce((count, item) => {
+  //   if (isBusquedaMatch) {
+  //     return count + 1;
+  //   }
+  //   return count;
+  // }, 0);
+  
+   
+  // // Paso 4: Actualizar paginación para mostrar solo objetos filtrados
+  // const page = parseInt(req.query.page) || 1;
+  // const limit = 200;
+  // const skip = (page - 1) * limit;
+  
+  // const paginatedData = filteredData.slice(skip, skip + limit);
+  // const totalPropiedadesFiltradas = filteredData.length;
+  // const totalPropiedades = totalPropiedadesFiltradas;
+  // const totalPages = Math.ceil(totalPropiedades / limit);
+  // const pages = [];
+  // for (let i = 1; i <= totalPages; i++) {
+  //   pages.push(i);
+  // }
+
   function capitalizeFirstLetter(str) {
     if (!str) {
       return '';
@@ -177,54 +249,98 @@ app.post('/filtrar', (req, res) => {
   
   const provincia = req.body.provincia;
   const referencia = req.body.referencia ? req.body.referencia.toUpperCase() : '';
-  // const ciudad = capitalizeFirstLetter(req.body.ciudad);
   const ciudad = req.body.ciudad;
   const precioMinimo = req.body.precioMinimo;
   const precioMaximo = req.body.precioMaximo;
-
-  
+  const busqueda = req.body.busqueda; 
   const propiedadesTotales = data.length;
+  let propiedadesFiltradas = 0;
+
 
   const filteredData = data.filter(item => {
     if (!item.Price) {
       return false;
     }
-    // const itemPrice = parseFloat(item.Price.replace('€', '').replace('.', '').replace(',', '').trim());
-
     const itemPrice = parseFloat(item.Price.replace('€', '').replace('.', '').replace('.','').replace('.','').trim());
-    // const itemPrice = parseFloat(item.Price.replace('€', '').trim().replace(',', '.').replace(/\.(?=.*\.)/g, ''));
-    const isProvinciaMatch = !provincia || (item.Provincia && item.Provincia.includes(provincia));
-    const isReferenciaMatch = !referencia || (item.Id && item.Id.includes(referencia));
-    const isCiudadMatch = !ciudad || (item.Municipio && item.Municipio.includes(ciudad));
+    const isProvinciaMatch = !provincia || (item.Provincia && item.Provincia.toLowerCase().includes(provincia.toLowerCase()));
+    const isCiudadMatch = !ciudad || (item.Municipio && item.Municipio.toLowerCase().includes(ciudad.toLowerCase()));
+    const isReferenciaMatch = !referencia || (item.Id && item.Id.toLowerCase().includes(referencia.toLowerCase()));
+    const isBusquedaMatch = !busqueda || (
+      (item.Provincia && item.Provincia.toLowerCase().includes(busqueda.toLowerCase())) ||
+      (item.Municipio && item.Municipio.toLowerCase().includes(busqueda.toLowerCase())) ||
+      (item.Id && item.Id.toLowerCase().includes(busqueda.toLowerCase())) ||
+      (item.Title && item.Title.toLowerCase().includes(busqueda.toLowerCase())) ||
+      (item.Direccion && item.Direccion.toLowerCase().includes(busqueda.toLowerCase()))
+    );
     const isPrecioMinimoMatch = !precioMinimo || itemPrice >= precioMinimo;
-    const isPrecioMaximoMatch = !precioMaximo || itemPrice >= precioMaximo;
-    
-    return isProvinciaMatch && isReferenciaMatch && isCiudadMatch && isPrecioMinimoMatch && isPrecioMaximoMatch;
-  
-    
+    const isPrecioMaximoMatch = !precioMaximo || itemPrice >= precioMaximo;  
+
+    if (isProvinciaMatch || isCiudadMatch || isReferenciaMatch || isBusquedaMatch || isPrecioMinimoMatch || isPrecioMaximoMatch) {
+      propiedadesFiltradas++;
+    }
+
+    return isProvinciaMatch && isCiudadMatch && isReferenciaMatch && isBusquedaMatch && isPrecioMinimoMatch && isPrecioMaximoMatch;
   });
    
-  // Paso 4: Actualizar paginación para mostrar solo objetos filtrados
   const page = parseInt(req.query.page) || 1;
   const limit = 200;
   const skip = (page - 1) * limit;
-
+  
   const paginatedData = filteredData.slice(skip, skip + limit);
-  const totalPropiedades = filteredData.length;
+  const totalPropiedadesFiltradas = filteredData.length;
+  const totalPropiedades = totalPropiedadesFiltradas;
   const totalPages = Math.ceil(totalPropiedades / limit);
   const pages = [];
   for (let i = 1; i <= totalPages; i++) {
     pages.push(i);
   }
 
-  const totalPropiedadesFiltradas = filteredData.length;
+  const propiedadesNoFiltradas = propiedadesTotales - propiedadesFiltradas;
 
+  const propiedadesFiltradasBusqueda = filteredData.reduce((count, item) => {
+    const itemPrice = parseFloat(item.Price.replace('€', '').replace('.', '').replace('.','').replace('.','').trim());
+    const isProvinciaMatch = !provincia || (item.Provincia && item.Provincia.toLowerCase().includes(provincia.toLowerCase()));
+    const isCiudadMatch = !ciudad || (item.Municipio && item.Municipio.toLowerCase().includes(ciudad.toLowerCase()));
+    const isReferenciaMatch = !referencia || (item.Id && item.Id.toLowerCase().includes(referencia.toLowerCase()));
+    const isBusquedaMatch = !busqueda || (
+      (item.Provincia && item.Provincia.toLowerCase().includes(busqueda.toLowerCase())) ||
+      (item.Municipio && item.Municipio.toLowerCase().includes(busqueda.toLowerCase())) ||
+      (item.Id && item.Id.toLowerCase().includes(busqueda.toLowerCase())) ||
+      (item.Title && item.Title.toLowerCase().includes(busqueda.toLowerCase())) ||
+      (item.Direccion && item.Direccion.toLowerCase().includes(busqueda.toLowerCase()))
+    );
+    const isPrecioMinimoMatch = !precioMinimo || itemPrice >= precioMinimo;
+    const isPrecioMaximoMatch = !precioMaximo || itemPrice >= precioMaximo;  
+    
+    if (isProvinciaMatch || isCiudadMatch || isReferenciaMatch || isBusquedaMatch || isPrecioMinimoMatch || isPrecioMaximoMatch) {
+      return count + 1;
+    }
+    return count;
+  }, 0);
 
-  res.render('home', { data: paginatedData, pages, name: req.session.name, totalPropiedadesFiltradas, provincia, propiedadesTotales, referencia, ciudad, precioMaximo, precioMinimo  }, (err, html) => {
+  
+  
+
+  res.render('home', { data: paginatedData, 
+    pages, 
+    name: req.session.name, 
+    totalPropiedadesFiltradas, 
+    provincia, 
+    propiedadesTotales, 
+    referencia, 
+    ciudad, 
+    precioMaximo, 
+    precioMinimo, 
+    propiedadesNoFiltradas, 
+    propiedadesFiltradasBusqueda,
+    busqueda
+    }, (err, html) => {
     if (err) {
       console.log(err);
       res.status(500).send('Error al renderizar la página');
     } else {
+      console.log('Valores enviados al renderizado:', totalPropiedadesFiltradas, propiedadesFiltradasBusqueda);
+
       res.send(html);
     }
   });
