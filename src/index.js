@@ -167,6 +167,15 @@ app.post('/filtrar', (req, res) => {
     }
     return str[0].toUpperCase() + str.slice(1).toLowerCase();
   }
+
+  req.session.filtro = {
+    provincia: req.body.provincia,
+    referencia: req.body.referencia ? req.body.referencia.toUpperCase() : '',
+    ciudad: req.body.ciudad,
+    precioMinimo: req.body.precioMinimo,
+    precioMaximo: req.body.precioMaximo,
+    busqueda: req.body.busqueda
+  };
   
   const provincia = req.body.provincia;
   const referencia = req.body.referencia ? req.body.referencia.toUpperCase() : '';
@@ -174,6 +183,8 @@ app.post('/filtrar', (req, res) => {
   const precioMinimo = req.body.precioMinimo;
   const precioMaximo = req.body.precioMaximo;
   const busqueda = req.body.busqueda; 
+
+  
   const propiedadesTotales = data.length;
   let propiedadesFiltradas = 0;
 
@@ -194,7 +205,7 @@ app.post('/filtrar', (req, res) => {
       (item.Direccion && item.Direccion.toLowerCase().includes(busqueda.toLowerCase()))
     );
     const isPrecioMinimoMatch = !precioMinimo || itemPrice >= precioMinimo;
-    const isPrecioMaximoMatch = !precioMaximo || itemPrice >= precioMaximo;  
+    const isPrecioMaximoMatch = !precioMaximo || itemPrice <= precioMaximo;  
 
     if (isProvinciaMatch || isCiudadMatch || isReferenciaMatch || isBusquedaMatch || isPrecioMinimoMatch || isPrecioMaximoMatch) {
       propiedadesFiltradas++;
@@ -231,7 +242,7 @@ app.post('/filtrar', (req, res) => {
       (item.Direccion && item.Direccion.toLowerCase().includes(busqueda.toLowerCase()))
     );
     const isPrecioMinimoMatch = !precioMinimo || itemPrice >= precioMinimo;
-    const isPrecioMaximoMatch = !precioMaximo || itemPrice >= precioMaximo;  
+    const isPrecioMaximoMatch = !precioMaximo || itemPrice <= precioMaximo;  
     
     if (isProvinciaMatch || isCiudadMatch || isReferenciaMatch || isBusquedaMatch || isPrecioMinimoMatch || isPrecioMaximoMatch) {
       return count + 1;
@@ -239,7 +250,6 @@ app.post('/filtrar', (req, res) => {
     return count;
   }, 0);
 
-  
 
   res.render('home', { data: paginatedData, 
     pages, 
@@ -253,7 +263,9 @@ app.post('/filtrar', (req, res) => {
     precioMinimo, 
     propiedadesNoFiltradas, 
     propiedadesFiltradasBusqueda,
-    busqueda
+    busqueda,
+    precioMinimo: req.session.filtro.precioMinimo,
+    precioMaximo: req.session.filtro.precioMaximo,
     }, (err, html) => {
     if (err) {
       console.log(err);
@@ -265,6 +277,33 @@ app.post('/filtrar', (req, res) => {
     }
   });
 });
+
+  
+
+//   res.render('home', { data: paginatedData, 
+//     pages, 
+//     name: req.session.name, 
+//     totalPropiedadesFiltradas, 
+//     provincia, 
+//     propiedadesTotales, 
+//     referencia, 
+//     ciudad, 
+//     precioMaximo, 
+//     precioMinimo, 
+//     propiedadesNoFiltradas, 
+//     propiedadesFiltradasBusqueda,
+//     busqueda
+//     }, (err, html) => {
+//     if (err) {
+//       console.log(err);
+//       res.status(500).send('Error al renderizar la página');
+//     } else {
+//       console.log('Valores enviados al renderizado:', totalPropiedadesFiltradas, propiedadesFiltradasBusqueda);
+
+//       res.send(html);
+//     }
+//   });
+// });
 
 
 app.get('/detalle/:id', (req, res) => {
@@ -339,47 +378,107 @@ hbs.registerHelper('checkMainPhoto', function(MainPhoto, options) {
 });
 
 
+hbs.registerHelper('if_eq', function(a, b, opts) {
+  if (a == b) {
+    return opts.fn(this);
+  } else {
+    return opts.inverse(this);
+  }
+});
+
 
 
 
 app.get('/', (req, res) => {
   if(req.session.loggedin == true) {
     const page = parseInt(req.query.page) || 1;
-  const limit = 200;
-  const skip = (page - 1) * limit;
+    const limit = 200;
+    const skip = (page - 1) * limit;
 
-  const totalPropiedades = data.length;
-  const totalPages = Math.ceil(totalPropiedades / limit);
+    // Usar los criterios de búsqueda de la sesión para filtrar
+    const filtro = req.session.filtro || {};
+    const filteredData = data.filter(item => {
+      // Aplicar el filtro basado en los criterios de búsqueda
+        const itemPrice = item.Price ? parseFloat(item.Price.replace('€', '').replace('.', '').replace('.','').replace('.','').trim()) : 0;
+        const isProvinciaMatch = !filtro.provincia || (item.Provincia && item.Provincia.toLowerCase().includes(filtro.provincia.toLowerCase()));
+        const isCiudadMatch = !filtro.ciudad || (item.Municipio && item.Municipio.toLowerCase().includes(filtro.ciudad.toLowerCase()));
+        const isReferenciaMatch = !filtro.referencia || (item.Id && item.Id.toLowerCase().includes(filtro.referencia.toLowerCase()));
+        const isBusquedaMatch = !filtro.busqueda || (
+          (item.Provincia && item.Provincia.toLowerCase().includes(filtro.busqueda.toLowerCase())) ||
+          (item.Municipio && item.Municipio.toLowerCase().includes(filtro.busqueda.toLowerCase())) ||
+          (item.Id && item.Id.toLowerCase().includes(filtro.busqueda.toLowerCase())) ||
+          (item.Title && item.Title.toLowerCase().includes(filtro.busqueda.toLowerCase())) ||
+          (item.Direccion && item.Direccion.toLowerCase().includes(filtro.busqueda.toLowerCase()))
+        );
+        const isPrecioMinimoMatch = !filtro.precioMinimo || itemPrice >= filtro.precioMinimo;
+        const isPrecioMaximoMatch = !filtro.precioMaximo || itemPrice <= filtro.precioMaximo;  
 
-  const pages = [];
-  for (let i = 1; i <= totalPages; i++) {
-    pages.push(i);
-  }
+        return isProvinciaMatch && isCiudadMatch && isReferenciaMatch && isBusquedaMatch && isPrecioMinimoMatch && isPrecioMaximoMatch;
+    });
 
-  const paginatedData = data.slice(skip, skip + limit);
-  res.render('home', { data: paginatedData, pages, name: req.session.name, totalPropiedades }, (err, html) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send('Error al renderizar la página');
-    } else {
-      console.log(paginatedData);
-      res.send(html);
+    const totalPropiedades = filteredData.length;
+    const totalPages = Math.ceil(totalPropiedades / limit);
+
+    const pages = [];
+    for (let i = 1; i <= totalPages; i++) {
+      pages.push(i);
     }
-  });
-  }else{
+
+    const paginatedData = filteredData.slice(skip, skip + limit);
+    res.render('home', { data: paginatedData, pages, name: req.session.name, totalPropiedades }, (err, html) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send('Error al renderizar la página');
+      } else {
+        console.log(paginatedData);
+        res.send(html);
+      }
+    });
+  } else {
       res.redirect('/login');
   }   
+});
+
+
+
+
+
+
+// app.get('/', (req, res) => {
+//   if(req.session.loggedin == true) {
+//     const page = parseInt(req.query.page) || 1;
+//   const limit = 200;
+//   const skip = (page - 1) * limit;
+
+//   const totalPropiedades = data.length;
+//   const totalPages = Math.ceil(totalPropiedades / limit);
+
+//   const pages = [];
+//   for (let i = 1; i <= totalPages; i++) {
+//     pages.push(i);
+//   }
+
+//   const paginatedData = data.slice(skip, skip + limit);
+//   res.render('home', { data: paginatedData, pages, name: req.session.name, totalPropiedades }, (err, html) => {
+//     if (err) {
+//       console.log(err);
+//       res.status(500).send('Error al renderizar la página');
+//     } else {
+//       console.log(paginatedData);
+//       res.send(html);
+//     }
+//   });
+//   }else{
+//       res.redirect('/login');
+//   }   
 
   
-});
+// });
 
 
 app.listen(3000, () => {
   console.log('Servidor iniciado en el puerto 3000');
 });
-
-
-
 
 
 
