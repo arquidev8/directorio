@@ -154,7 +154,10 @@ const data2 = xlsx.utils.sheet_to_json(worksheet2);
 const workbook3 = xlsx.readFile(path.resolve(__dirname, 'data_solvia.xlsx'));
 const worksheet3 = workbook3.Sheets['Sheet1'];
 const data3 = xlsx.utils.sheet_to_json(worksheet3);
-const data = data1.concat(data2, data3);
+const workbook4 = xlsx.readFile(path.resolve(__dirname, 'diglo_data.xlsx'));
+const worksheet4 = workbook4.Sheets['Sheet1'];
+const data4 = xlsx.utils.sheet_to_json(worksheet4);
+const data = data1.concat(data2, data3, data4);
 
 
 
@@ -196,7 +199,9 @@ app.post('/filtrar', (req, res) => {
     const itemPrice = parseFloat(item.Price.replace('€', '').replace('.', '').replace('.','').replace('.','').trim());
     const isProvinciaMatch = !provincia || (item.Provincia && item.Provincia.toLowerCase().includes(provincia.toLowerCase()));
     const isCiudadMatch = !ciudad || (item.Municipio && item.Municipio.toLowerCase().includes(ciudad.toLowerCase()));
-    const isReferenciaMatch = !referencia || (item.Id && item.Id.toLowerCase().includes(referencia.toLowerCase()));
+    // const isReferenciaMatch = !referencia || (item.Id && item.Id.toLowerCase().includes(referencia.toLowerCase()));
+    const isReferenciaMatch = !referencia || (item.Id && item.Id.toString().toLowerCase().includes(referencia.toLowerCase()));
+
     const isBusquedaMatch = !busqueda || (
       (item.Provincia && item.Provincia.toLowerCase().includes(busqueda.toLowerCase())) ||
       (item.Municipio && item.Municipio.toLowerCase().includes(busqueda.toLowerCase())) ||
@@ -233,7 +238,9 @@ app.post('/filtrar', (req, res) => {
     const itemPrice = parseFloat(item.Price.replace('€', '').replace('.', '').replace('.','').replace('.','').trim());
     const isProvinciaMatch = !provincia || (item.Provincia && item.Provincia.toLowerCase().includes(provincia.toLowerCase()));
     const isCiudadMatch = !ciudad || (item.Municipio && item.Municipio.toLowerCase().includes(ciudad.toLowerCase()));
-    const isReferenciaMatch = !referencia || (item.Id && item.Id.toLowerCase().includes(referencia.toLowerCase()));
+    // const isReferenciaMatch = !referencia || (item.Id && item.Id.toLowerCase().includes(referencia.toLowerCase()));
+    const isReferenciaMatch = !referencia || (item.Id && item.Id.toString().toLowerCase().includes(referencia.toLowerCase()));
+
     const isBusquedaMatch = !busqueda || (
       (item.Provincia && item.Provincia.toLowerCase().includes(busqueda.toLowerCase())) ||
       (item.Municipio && item.Municipio.toLowerCase().includes(busqueda.toLowerCase())) ||
