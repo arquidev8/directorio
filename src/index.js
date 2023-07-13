@@ -205,7 +205,7 @@ app.post('/filtrar', (req, res) => {
     const isBusquedaMatch = !busqueda || (
       (item.Provincia && item.Provincia.toLowerCase().includes(busqueda.toLowerCase())) ||
       (item.Municipio && item.Municipio.toLowerCase().includes(busqueda.toLowerCase())) ||
-      (item.Id && item.Id.toLowerCase().includes(busqueda.toLowerCase())) ||
+      (item.Id && item.Id.toString().toLowerCase().includes(busqueda.toLowerCase())) ||
       (item.Title && item.Title.toLowerCase().includes(busqueda.toLowerCase())) ||
       (item.Direccion && item.Direccion.toLowerCase().includes(busqueda.toLowerCase()))
     );
@@ -244,7 +244,7 @@ app.post('/filtrar', (req, res) => {
     const isBusquedaMatch = !busqueda || (
       (item.Provincia && item.Provincia.toLowerCase().includes(busqueda.toLowerCase())) ||
       (item.Municipio && item.Municipio.toLowerCase().includes(busqueda.toLowerCase())) ||
-      (item.Id && item.Id.toLowerCase().includes(busqueda.toLowerCase())) ||
+      (item.Id && item.Id.toString().toLowerCase().includes(busqueda.toLowerCase())) ||
       (item.Title && item.Title.toLowerCase().includes(busqueda.toLowerCase())) ||
       (item.Direccion && item.Direccion.toLowerCase().includes(busqueda.toLowerCase()))
     );
