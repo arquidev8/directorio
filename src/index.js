@@ -157,7 +157,10 @@ const data3 = xlsx.utils.sheet_to_json(worksheet3);
 const workbook4 = xlsx.readFile(path.resolve(__dirname, 'diglo_data.xlsx'));
 const worksheet4 = workbook4.Sheets['Sheet1'];
 const data4 = xlsx.utils.sheet_to_json(worksheet4);
-const data = data1.concat(data2, data3, data4);
+const workbook5 = xlsx.readFile(path.resolve(__dirname, 'PortalNow_1.xlsx'));
+const worksheet5 = workbook5.Sheets['Sheet1'];
+const data5 = xlsx.utils.sheet_to_json(worksheet5);
+const data = data1.concat(data2, data3, data4, data5);
 
 
 
