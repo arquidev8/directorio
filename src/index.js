@@ -420,18 +420,29 @@ app.get('/detalle/:id', (req, res) => {
   const id = req.params.id;
   const detalle = data.find((item) => item.Id == id); // Usa 'Id' y '==' en lugar de 'id' y '==='
 
-  if (detalle && detalle.ImageSources) {
-    // Verificar si ImageSources es una cadena
-    if (typeof detalle.ImageSources === 'string') {
-      // Reemplazar las comillas simples por comillas dobles
-      detalle.ImageSources = detalle.ImageSources.replace(/'/g, '"');
+  // if (detalle && detalle.ImageSources) {
+  //   // Verificar si ImageSources es una cadena
+  //   if (typeof detalle.ImageSources === 'string') {
+  //     // Reemplazar las comillas simples por comillas dobles
+  //     detalle.ImageSources = detalle.ImageSources.replace(/'/g, '"');
   
-      // Convertir la cadena "ImageSources" en un arreglo
+  //     // Convertir la cadena "ImageSources" en un arreglo
+  //     detalle.ImageSources = JSON.parse(detalle.ImageSources);
+  //   } else {
+  //     // Si ImageSources no es una cadena, asignar un arreglo vacío
+  //     detalle.ImageSources = [];
+  //   }
+  // }
+
+  if (typeof detalle.ImageSources === 'string') {
+    try {
       detalle.ImageSources = JSON.parse(detalle.ImageSources);
-    } else {
-      // Si ImageSources no es una cadena, asignar un arreglo vacío
+    } catch (error) {
+      console.log('Error al parsear la cadena JSON de detalle.ImageSources:', error);
       detalle.ImageSources = [];
     }
+  } else {
+    detalle.ImageSources = [];
   }
   
 
