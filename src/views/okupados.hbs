@@ -1,0 +1,14 @@
+<div class="flex flex-wrap -mx-4">
+    {{#each data}}
+    <div class="w-full md:w-1/2 lg:w-1/3 px-12 mb-4 p-7">
+        <div class="bg-white rounded-lg overflow-hidden shadow-lg">
+            <img src="{{#if this.MainPhoto}}{{this.MainPhoto}}{{else}}https://i.postimg.cc/CxV7rK5v/imagedefault.png{{/if}}" alt="" class="card-image">
+            <div class="p-10">
+                <p class="text-sm text-gray-600 mb-1"><strong>Referencia:</strong> {{this.referencia}} m2</p>
+                <p class="text-lg font-medium text-gray-900 mb-2"><strong>Direccion:</strong> {{this.direccion}}</p>
+                <p class="text-sm text-gray-600 mb-2"><strong>Status:</strong> {{this.estatus}}</p>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>

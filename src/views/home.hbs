@@ -298,6 +298,7 @@
       <div class="card">
         <a href="/detalle/{{this.Id}}">
           <img src="{{this.MainPhoto}}" alt="" class="card-image">
+          {{!-- <img src="{{#if this.MainPhoto}}{{this.MainPhoto}}{{else}}https://i.postimg.cc/CxV7rK5v/imagedefault.png{{/if}}" alt="" class="card-image"> --}}
           <div class="card-details">
             <h1><strong>{{this.Title}}</strong></h1>
             <p data-referencia><strong>Referencia:</strong> {{this.Id}}</p>
