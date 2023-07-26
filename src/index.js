@@ -160,7 +160,10 @@ const data4 = xlsx.utils.sheet_to_json(worksheet4);
 const workbook5 = xlsx.readFile(path.resolve(__dirname, 'PortalNow_1.xlsx'));
 const worksheet5 = workbook5.Sheets['Sheet1'];
 const data5 = xlsx.utils.sheet_to_json(worksheet5);
-const data = data1.concat(data2, data3, data4, data5);
+const workbook6 = xlsx.readFile(path.resolve(__dirname, 'PortalNow_2.xlsx'));
+const worksheet6 = workbook6.Sheets['Sheet1'];
+const data6 = xlsx.utils.sheet_to_json(worksheet6);
+const data = data1.concat(data2, data3, data4, data5, data6);
 
 
 
