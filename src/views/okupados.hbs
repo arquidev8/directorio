@@ -1,4 +1,4 @@
-<div class="flex flex-wrap -mx-4">
+{{!-- <div class="flex flex-wrap -mx-4">
     {{#each data}}
     <div class="w-full md:w-1/2 lg:w-1/3 px-12 mb-4 p-7">
         <div class="bg-white rounded-lg overflow-hidden shadow-lg">
@@ -6,7 +6,7 @@
             <div class="p-10">
                 <p class="text-sm text-gray-600 mb-1"><strong>Referencia:</strong> {{this.referencia}} m2</p>
                 <p class="text-sm text-gray-600 mb-2"><strong>Direccion:</strong> {{this.direccion}}</p>
-                <p class="text-sm text-gray-600 mb-2"><strong>Precio:</strong> {{this.precio}}</p>
+                <p class="text-sm text-gray-600 mb-2"><strong>Precio:</strong> {{this.precio}} €</p>
                 <p class="text-sm text-gray-600 mb-2"><strong>Fondo:</strong> {{this.fondo}}</p>
                 <p class="text-sm text-gray-600 mb-2"><strong>Tipo:</strong> {{this.tipo}}</p>
                 <p class="text-sm text-gray-600 mb-2"><strong>Status:</strong> {{this.estatus}}</p>
@@ -14,4 +14,112 @@
         </div>
     </div>
     {{/each}}
+</div> --}}
+
+{{!-- 
+<div class="grid grid-cols-1 mx-4 justify-center p-10">
+  <form method="POST" action="/okupados" class="flex flex-col items-center py-10">
+    <div class="flex flex-col items-start w-full md:w-2/4 mb-4">
+      <label for="busqueda" class="text-white text-lg mb-3"><strong>Busqueda Rapida</strong></label>
+      <input type="text" id="busqueda" name="busqueda" placeholder="Introduzca Referencia, Direccion, Precio, Fondo o Tipo" class="w-full h-10 px-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500">
+      <button type="submit" class=" w-full mt-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Busqueda Rapida</button> 
+    </div>
+  </form>
+
+  <div class="flex flex-wrap -mx-4">
+    {{#each data}}
+    <div class="w-full md:w-1/2 lg:w-1/3 px-4 mb-4">
+      <div class="bg-white rounded-lg overflow-hidden shadow-lg">
+        <img src="{{#if this.MainPhoto}}{{this.MainPhoto}}{{else}}https://i.postimg.cc/CxV7rK5v/imagedefault.png{{/if}}" alt="" class="card-image">
+        <div class="p-4">
+          {{#if this.referencia}}
+          <p class="text-sm text-gray-600 mb-1"><strong>Referencia:</strong> {{this.referencia}}</p>
+          {{/if}}
+          {{#if this.direccion}}
+          <p class="text-sm text-gray-600 mb-2"><strong>Direccion:</strong> {{this.direccion}}</p>
+          {{/if}}
+          {{#if this.precio}}
+          <p class="text-sm text-gray-600 mb-2"><strong>Precio:</strong> {{this.precio}} €</p>
+          {{/if}}
+          {{#if this.fondo}}
+          <p class="text-sm text-gray-600 mb-2"><strong>Fondo:</strong> {{this.fondo}}</p>
+          {{/if}}
+          {{#if this.tipo}}
+          <p class="text-sm text-gray-600 mb-2"><strong>Tipo:</strong> {{this.tipo}}</p>
+          {{/if}}
+          {{#if this.estatus}}
+          <p class="text-sm text-gray-600 mb-2"><strong>Status:</strong> {{this.estatus}}</p>
+          {{/if}}
+          {{#if this.provincia}}
+          <p class="text-sm text-gray-600 mb-2"><strong>Provincia:</strong> {{this.provincia}}</p>
+          {{/if}}
+        
+        </div>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</div> --}}
+
+<div class="grid grid-cols-1 mx-4 justify-center p-10">
+  <form method="POST" action="/okupados" class="flex flex-col items-center py-10">
+    <div class="flex flex-col items-start w-full md:w-2/4 mb-4">
+      <label for="busqueda" class="text-white text-lg mb-3"><strong>Busqueda Rapida</strong></label>
+      <input type="text" id="busqueda" name="busqueda" placeholder="Introduzca Referencia, Direccion, Precio, Fondo o Tipo" class="w-full h-10 px-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500">
+      <button type="submit" class=" w-full mt-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Busqueda Rapida</button> 
+    </div>
+  </form>
+
+  <div class="flex flex-col custom-text text-3x2 font-semibold text-gray-700 mt-4 lg:mt-0 m-10 ml-13 sm:text-base">
+    {{#if total}}
+      <p>Propiedades totales: {{total}}</p>
+    {{/if}}
+    {{#if filtrado}}
+      <p>Propiedades filtradas: {{filtrado}}</p>
+    {{/if}}
+  </div>
+
+  <div class="flex flex-wrap -mx-4">
+    {{#each data}}
+    <div class="w-full md:w-1/2 lg:w-1/3 px-4 mb-4">
+      <div class="bg-white rounded-lg overflow-hidden shadow-lg">
+        <img src="{{#if this.MainPhoto}}{{this.MainPhoto}}{{else}}https://i.postimg.cc/CxV7rK5v/imagedefault.png{{/if}}" alt="" class="card-image">
+        <div class="p-4">
+          {{#if this.referencia}}
+          <p class="text-sm text-gray-600 mb-1"><strong>Referencia:</strong> {{this.referencia}}</p>
+          {{/if}}
+          {{#if this.direccion}}
+          <p class="text-sm text-gray-600 mb-2"><strong>Direccion:</strong> {{this.direccion}}</p>
+          {{/if}}
+          {{#if this.precio}}
+          <p class="text-sm text-gray-600 mb-2"><strong>Precio:</strong> {{this.precio}} €</p>
+          {{/if}}
+          {{#if this.fondo}}
+          <p class="text-sm text-gray-600 mb-2"><strong>Fondo:</strong> {{this.fondo}}</p>
+          {{/if}}
+          {{#if this.tipo}}
+          <p class="text-sm text-gray-600 mb-2"><strong>Tipo:</strong> {{this.tipo}}</p>
+          {{/if}}
+          {{#if this.estatus}}
+          <p class="text-sm text-gray-600 mb-2"><strong>Status:</strong> {{this.estatus}}</p>
+          {{/if}}
+          {{#if this.provincia}}
+          <p class="text-sm text-gray-600 mb-2"><strong>Provincia:</strong> {{this.provincia}}</p>
+          {{/if}}
+        
+        </div>
+      </div>
+    </div>
+    {{/each}}
+  </div>
 </div>
+
+<script>
+  const searchForm = document.querySelector('.search-form');
+  const input = document.querySelector('#busqueda');
+  searchForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const value = input.value.trim();
+    window.location.href = `/okupados?busqueda=${value}`;
+  });
+</script>

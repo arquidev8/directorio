@@ -11,6 +11,8 @@ const loginRoutes = require('./routes/login');
 const dotenv = require('dotenv');
 require('dotenv').config();
 
+const paginate = require('paginate-array');
+
 
 app.set('views', __dirname + '/views');
 app.engine('.hbs', engine({
@@ -37,6 +39,9 @@ app.use(session({
   resave : true,
   saveUninitialized : true
 }))
+
+
+
 
 
 const path = require('path');
@@ -66,6 +71,7 @@ const data = data1.concat(data2, data3, data4, data5, data6, data7);
 const OcupadosBook = xlsx.readFile(path.resolve(__dirname, 'okupados2.xlsx'));
 const OcupadosSheet = OcupadosBook.Sheets['Sheet1'];
 const dataOcupados = xlsx.utils.sheet_to_json(OcupadosSheet);
+
 
 
 
@@ -196,7 +202,17 @@ app.post('/filtrar', (req, res) => {
 });
 
 
+
+
+
+
+
+
+
+
+
 app.get('/okupados', (req, res) => {
+
   const data = dataOcupados.map((item) => {
     return {
       referencia: item.REFERENCIA,
@@ -205,17 +221,143 @@ app.get('/okupados', (req, res) => {
       ocupado: item.OCUPADO,
       tipo: item.TIPO,
       fondo: item.FONDO,
-      precio: item.PRECIO
+      precio: item.PRECIO,
+      provincia: item.PROVINCIA
     };
   });
 
-  console.log(data); // Agregado para imprimir los datos de dataOcupados
+  // console.log(data); // Agregado para imprimir los datos de dataOcupados
 
   res.render('okupados', { 
     data: data,
     name: req.session.name 
   });
 });
+
+// app.post('/okupados', (req, res) => {
+//   const busqueda = req.body.busqueda.toLowerCase().trim();
+//   let dataFiltered = dataOcupados;
+
+//   if (busqueda) {
+//     dataFiltered = dataOcupados.filter((item) => {
+//       let isBusquedaMatch = false;
+      
+//       if (typeof item.REFERENCIA === 'string' && item.REFERENCIA.toLowerCase().includes(busqueda)) {
+//           isBusquedaMatch = true;
+//       } else if (typeof item.DIRECCION === 'string' && item.DIRECCION.toLowerCase().includes(busqueda)) {
+//           isBusquedaMatch = true;
+//       } else if (typeof item.TIPO === 'string' && item.TIPO.toLowerCase().includes(busqueda)) {
+//           isBusquedaMatch = true;
+//       } else if (!isNaN(busqueda) && Number(item.PRECIO) == Number(busqueda)) {
+//           isBusquedaMatch = true;
+//       } else if (typeof item.PRECIO === 'string' && item.PRECIO.toLowerCase().includes(busqueda)){
+//           isBusquedaMatch = true;
+//       } else if (typeof item.PROVINCIA === 'string' && item.PROVINCIA.toLowerCase().includes(busqueda)){
+//         isBusquedaMatch = true;
+//       } else if (typeof item.FONDO === 'string' && item.FONDO.toLowerCase().includes(busqueda)){
+//         isBusquedaMatch = true;
+//       }
+      
+//       return isBusquedaMatch;
+//     }).map((item) => {
+//       return {
+//         referencia: item.REFERENCIA,
+//         direccion: item.DIRECCION,
+//         estatus: item.ESTATUS,
+//         ocupado: item.OCUPADO,
+//         tipo: item.TIPO,
+//         fondo: item.FONDO,
+//         precio: item.PRECIO,
+//         provincia: item.PROVINCIA,
+//       };
+//     });
+//   }
+
+//   res.render('okupados', { 
+//     data: dataFiltered,
+//     name: req.session.name 
+//   });
+// });
+
+
+app.post('/okupados', (req, res) => {
+  const busqueda = req.body.busqueda.toLowerCase().trim();
+  let dataFiltered = dataOcupados;
+  let criterio = "";
+
+  if (busqueda) {
+    dataFiltered = dataOcupados.filter((item) => {
+      let isBusquedaMatch = false;
+
+      if (typeof item.REFERENCIA === 'string' && item.REFERENCIA.toLowerCase().includes(busqueda)) {
+        isBusquedaMatch = true;
+        criterio = "Referencia: " + item.REFERENCIA; // criterio de búsqueda para referencia
+      } else if (typeof item.DIRECCION === 'string' && item.DIRECCION.toLowerCase().includes(busqueda)) {
+        isBusquedaMatch = true;
+        criterio = "Direccion: " + item.DIRECCION; // criterio de búsqueda para dirección
+      } else if (typeof item.TIPO === 'string' && item.TIPO.toLowerCase().includes(busqueda)) {
+        isBusquedaMatch = true;
+        criterio = "Tipo: " + item.TIPO; // criterio de búsqueda para tipo
+      } else if (!isNaN(busqueda) && Number(item.PRECIO) == Number(busqueda)) {
+        isBusquedaMatch = true;
+        criterio = "Precio: " + item.PRECIO + " €"; // criterio de búsqueda para precio
+      } else if (typeof item.PRECIO === 'string' && item.PRECIO.toLowerCase().includes(busqueda)){
+        isBusquedaMatch = true;
+        criterio = "Precio: " + item.PRECIO; // criterio de búsqueda para precio
+      } else if (typeof item.PROVINCIA === 'string' && item.PROVINCIA.toLowerCase().includes(busqueda)){
+        isBusquedaMatch = true;
+        criterio = "Provincia: " + item.PROVINCIA; // criterio de búsqueda para provincia
+      } else if (typeof item.FONDO === 'string' && item.FONDO.toLowerCase().includes(busqueda)){
+        isBusquedaMatch = true;
+        criterio = "Fondo: " + item.FONDO; // criterio de búsqueda para fondo
+      }
+      
+      return isBusquedaMatch;
+    }).map((item) => {
+      return {
+        referencia: item.REFERENCIA,
+        direccion: item.DIRECCION,
+        estatus: item.ESTATUS,
+        ocupado: item.OCUPADO,
+        tipo: item.TIPO,
+        fondo: item.FONDO,
+        precio: item.PRECIO,
+        provincia: item.PROVINCIA,
+      };
+    });
+
+    const filtrado = dataFiltered.length;
+    const total = dataOcupados.length;
+    res.render('okupados', { 
+      data: dataFiltered,
+      name: req.session.name,
+      filtrado: filtrado + " " + criterio + "", // incluir criterio en propiedades filtradas
+      total: total
+    });
+
+  } else {
+
+    const total = dataOcupados.length;
+    res.render('okupados', { 
+      data: dataOcupados,
+      name: req.session.name,
+      total: total
+    });
+
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
 
 app.get('/detalle/:id', (req, res) => {
   const id = req.params.id;
@@ -290,6 +432,22 @@ hbs.registerHelper('if_eq', function(a, b, opts) {
   }
 });
 
+
+hbs.registerHelper('gte', function(a, b, opts) {
+  if (a >= b) {
+    return opts.fn(this);
+  } else {
+    return opts.inverse(this);
+  }
+});
+
+hbs.registerHelper('range', function(start, end, options) {
+  let output = '';
+  for (let i = start; i <= end; i++) {
+    output += options.fn(i);
+  }
+  return output;
+});
 
 
 
