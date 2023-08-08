@@ -222,7 +222,12 @@ app.get('/okupados', (req, res) => {
       tipo: item.TIPO,
       fondo: item.FONDO,
       precio: item.PRECIO,
-      provincia: item.PROVINCIA
+      provincia: item.PROVINCIA,
+      superficie: item.SUPERFICIE,
+      ciudad: item.CIUDAD,
+      tipoprocedimiento: item.TIPOPROCEDIMIENTO,
+      faseprocedimiento: item.FASEPROCEDIMIENTO,
+      tipoocupacion: item.TIPOOCUPACION
     };
   });
 
@@ -310,7 +315,23 @@ app.post('/okupados', (req, res) => {
       } else if (typeof item.FONDO === 'string' && item.FONDO.toLowerCase().includes(busqueda)){
         isBusquedaMatch = true;
         criterio = "Fondo: " + item.FONDO; // criterio de búsqueda para fondo
+      } else if (typeof item.SUPERFICIE === 'string' && item.SUPERFICIE.toLowerCase().includes(busqueda)){
+        isBusquedaMatch = true;
+        criterio = "Superficie: " + item.SUPERFICIE; // criterio de búsqueda para fondo
+      } else if (typeof item.CIUDAD === 'string' && item.CIUDAD.toLowerCase().includes(busqueda)){
+        isBusquedaMatch = true;
+        criterio = "Ciudad: " + item.CIUDAD; // criterio de búsqueda para fondo
+      } else if (typeof item.TIPOPROCEDIMIENTO === 'string' && item.TIPOPROCEDIMIENTO.toLowerCase().includes(busqueda)){
+        isBusquedaMatch = true;
+        criterio = "Tipo Procedimiento: " + item.TIPOPROCEDIMIENTO; // criterio de búsqueda para fondo
+      } else if (typeof item.FASEPROCEDIMIENTO === 'string' && item.FASEPROCEDIMIENTO.toLowerCase().includes(busqueda)){
+        isBusquedaMatch = true;
+        criterio = "Fase Procedimiento: " + item.FASEPROCEDIMIENTO; // criterio de búsqueda para fondo
+      } else if (typeof item.TIPOOCUPACION === 'string' && item.TIPOOCUPACION.toLowerCase().includes(busqueda)){
+        isBusquedaMatch = true;
+        criterio = "Tipo Ocupacion: " + item.TIPOOCUPACION; // criterio de búsqueda para fondo
       }
+      
       
       return isBusquedaMatch;
     }).map((item) => {
@@ -323,6 +344,12 @@ app.post('/okupados', (req, res) => {
         fondo: item.FONDO,
         precio: item.PRECIO,
         provincia: item.PROVINCIA,
+        superficie: item.SUPERFICIE,
+        ciudad: item.CIUDAD,
+        tipoprocedimiento: item.TIPOPROCEDIMIENTO,
+        faseprocedimiento: item.FASEPROCEDIMIENTO,
+        tipoocupacion: item.TIPOOCUPACION
+
       };
     });
 
