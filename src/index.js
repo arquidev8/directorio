@@ -204,13 +204,6 @@ app.post('/filtrar', (req, res) => {
 
 
 
-
-
-
-
-
-
-
 app.get('/okupados', (req, res) => {
 
   const data = dataOcupados.map((item) => {
@@ -385,7 +378,6 @@ app.post('/okupados', (req, res) => {
 
 
 
-
 app.get('/detalle/:id', (req, res) => {
   const id = req.params.id;
   const detalle = data.find((item) => item.Id == id); // Usa 'Id' y '==' en lugar de 'id' y '==='
@@ -400,15 +392,15 @@ app.get('/detalle/:id', (req, res) => {
   } else {
     detalle.ImageSources = [];
   }
-  console.log(detalle);
+  // console.log(detalle);
   
   res.render('detallePropiedad', { detalle: detalle, name: req.session.name }, (err, html) => {
     if (err) {
       console.log(err);
       res.status(500).send('Error al renderizar la página');
     } else {
-      console.log(detalle)
-      console.log(id);
+      // console.log(detalle)
+      // console.log(id);
       res.send(html);
     }
   });
@@ -539,7 +531,7 @@ app.get('/', (req, res) => {
         console.log(err);
         res.status(500).send('Error al renderizar la página');
       } else {
-        console.log(paginatedData);
+        // console.log(paginatedData);
         res.send(html);
       }
     });
