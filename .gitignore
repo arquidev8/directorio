@@ -1,6 +1,7 @@
 # Ignorar los módulos de Node.js
 node_modules/
 package-lock.json/
+.env.example/
 
 # Ignorar el archivo .env dentro de la carpeta src
 src/.env
