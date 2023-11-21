@@ -66,7 +66,7 @@ const data6 = xlsx.utils.sheet_to_json(worksheet6);
 const workbook7 = xlsx.readFile(path.resolve(__dirname, 'portalNow_3.xlsx'));
 const worksheet7 = workbook7.Sheets['Sheet1'];
 const data7 = xlsx.utils.sheet_to_json(worksheet7);
-const data = data1.concat(data2, data3, data4, data5, data6, data7);
+const data = data1.concat(data2, data3, data4);
 
 const OcupadosBook = xlsx.readFile(path.resolve(__dirname, 'okupados2.xlsx'));
 const OcupadosSheet = OcupadosBook.Sheets['Sheet1'];
